@@ -8,5 +8,9 @@ class Player(Entity):
         super().__init__()
         self.model = "quad"
 
+    def update(self):
+        self.x += 0.01
+
 if __name__ == "__main__":
+    player = Player()
     app.run()
