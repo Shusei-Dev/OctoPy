@@ -31,5 +31,8 @@ class OctoPy():
         dt *= self.fps
         self.previous_frame_time = time.time()
 
-
+    def main_loop(self):
+        global game_state
+        while game_state != 3:
+            self.
 MainClass = OctoPy( )
