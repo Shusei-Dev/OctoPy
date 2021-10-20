@@ -2,6 +2,9 @@ import pygame as pg
 import time
 from pygame.locals import *
 
+# 0 = Menu, 1 = PlayList, 2 = Play, 3 = Quit
+game_state = 0
+
 class OctoPy():
 
     def __init__(self):
