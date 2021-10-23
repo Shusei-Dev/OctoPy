@@ -31,10 +31,19 @@ class SpriteClass(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.posX, self.posY)
 
+        if size == None:
+            self.size = self.get_sprite_size()
+        else:
+            self.size = size
+
         spriteList.append(self)
 
+    def get_sprite_size(self):
+        return (self.rect[2], self.rect[3])
+
     def draw(self):
-        self.surface.blit(self.image, self.rect)
+        if self.state == self.stateList[1]:
+            self.surface.blit(self.image, self.rect)
 
     def update(self):
         self.rect.topleft = (self.posX, self.posY)

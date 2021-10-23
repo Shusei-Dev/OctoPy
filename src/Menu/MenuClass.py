@@ -1,20 +1,26 @@
 import pygame as pg
-from src.Sprite.SpriteClass import *
+from src.Sprite.Button.ButtonClass import *
 from src.Utils.utils import *
 
 class MenuClass():
 
-    def __init__(self, screen):
-        self.screen = screen
+    def __init__(self, surface, game_size):
+        self.screen = surface
+        self.game_size = game_size
+        self.btnList = []
 
-        self.btn_img = import_image("res/play_btn.png")
-        self.button = SpriteClass(self.screen, "Mickey", self.btn_img, (0,0), None, "Showed", "Button")
+        self.btn_play_img = import_image("res/play_btn.png")
+        self.play_button = ButtonClass(self.screen, "PlayBtn", self.btn_play_img, (100, 100), None, {"btn_pressed": "test"})
+        self.btnList.append(self.play_button)
 
     def draw(self):
-        self.button.draw()
+        for btn in self.btnList:
+            btn.draw()
 
     def update(self):
-        pass
+        for btn in self.btnList:
+            btn.update()
 
     def event(self):
-        pass
+        for btn in self.btnList:
+            btn.event()
