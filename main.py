@@ -42,11 +42,11 @@ class OctoPy():
             if event.type == pg.QUIT:
                 game_state = 3
 
-    def update(self):
-        pg.display.flip()
-
-    def draw(self):
-        self.menu.draw()
+    def menu_state(self):
+        while game_state == 0:
+            self.menu.event()
+            self.menu.update()
+            self.menu.draw()
 
     def main_loop(self):
         global game_state
