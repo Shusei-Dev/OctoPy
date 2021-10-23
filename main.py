@@ -5,6 +5,7 @@ from src.Menu.MenuClass import *
 
 # 0 = Menu, 1 = PlayList, 2 = Play, 3 = Quit
 game_state = 0
+BACKGROUND = "#000000"
 
 class OctoPy():
 
@@ -25,7 +26,7 @@ class OctoPy():
         self.screen_size = self.screen.get_size()
         pg.display.set_caption(self.name + str(self.version))
 
-        mainClock = pg.time.Clock()
+        self.mainClock = pg.time.Clock()
 
     def init_method(self):
         self.menu = MenuClass(self.screen)
@@ -35,28 +36,31 @@ class OctoPy():
         dt *= self.fps
         self.previous_frame_time = time.time()
 
-    # Interface(event, update, draw method)
     def event(self):
         global game_state
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 game_state = 3
 
-    def menu_state(self):
-        while game_state == 0:
-            self.menu.event()
-            self.menu.update()
+    def update(self):
+        pg.display.flip()
+        pass
+
+    def draw(self):
+        self.screen.fill(BACKGROUND)
+        global game_state
+        if game_state == 0:
             self.menu.draw()
+
+
 
     def main_loop(self):
         global game_state
         while game_state != 3:
-
             self.event()
             self.update()
             self.draw()
-            if game_state == 0:
-                pass
+            self.mainClock.tick(self.fps)
 
         pg.quit()
 
