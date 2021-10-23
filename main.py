@@ -1,7 +1,7 @@
 import pygame as pg
 import time
 from pygame.locals import *
-from src.Menu import *
+from src.Menu.MenuClass import *
 
 # 0 = Menu, 1 = PlayList, 2 = Play, 3 = Quit
 game_state = 0
@@ -21,14 +21,14 @@ class OctoPy():
         self.previous_frame_time = 0
         self.dt = 0
 
-        screen = pg.display.set_mode(self.game_size, self.fullscreen)
-        self.screen_size = screen.get_size()
+        self.screen = pg.display.set_mode(self.game_size, self.fullscreen)
+        self.screen_size = self.screen.get_size()
         pg.display.set_caption(self.name + str(self.version))
 
         mainClock = pg.time.Clock()
 
     def init_method(self):
-        self.menu = MenuClass()
+        self.menu = MenuClass(self.screen)
 
     def calculate_deltatime(self):
         self.dt = time.time() - self.previous_frame_time
@@ -46,7 +46,7 @@ class OctoPy():
         pg.display.flip()
 
     def draw(self):
-        menu.draw()
+        self.menu.draw()
 
     def main_loop(self):
         global game_state
@@ -54,6 +54,7 @@ class OctoPy():
 
             self.event()
             self.update()
+            self.draw()
             if game_state == 0:
                 pass
 
