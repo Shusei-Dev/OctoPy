@@ -51,8 +51,10 @@ class MenuClass():
 
             if self.game_state == 2:
                 if btn.name in self.settingsBtnList:
+                    if btn.name == "GraphismBtn" and self.settingsState["Graphism"] == True:
+                        print("AAA")
                     btn.draw()
-                
+
 
 
 
