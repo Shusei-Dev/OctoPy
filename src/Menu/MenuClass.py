@@ -11,7 +11,7 @@ class MenuClass():
         self.btnList = []
         self.game_center = (self.game_size[0] / 2, self.game_size[1] / 2)
 
-        self.settingsState = ""
+        self.settingsState = {"Graphism": False, "Sound": False, "Keys": False}
 
         # The 3 Main Buttons (Play, Option, Exit)
         # Play Button here
@@ -52,6 +52,9 @@ class MenuClass():
             if self.game_state == 2:
                 if btn.name in self.settingsBtnList:
                     btn.draw()
+                
+
+
 
     def update(self):
         for btn in self.btnList:
@@ -80,6 +83,10 @@ class MenuClass():
             if btn.name == "BackBtn" and btn.events.get("btn_pressed") == True:
                 if self.game_state == 2:
                     self.game_state = 1
+
+            if btn.name == "GraphismBtn" and btn.events.get("btn_pressed") == True:
+                if self.game_state == 2:
+                    self.settingsState["Graphism"] = True
 
         #print(self.game_state)
 
