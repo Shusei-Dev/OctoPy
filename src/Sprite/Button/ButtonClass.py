@@ -33,6 +33,7 @@ class ButtonClass(pg.sprite.Sprite):
 
         # Check if the events Dict have an btn_pressed event
         for i in self.events:
+            
             # Btn_pressed event is here
             if i == self.eventList[0]:
                 # Check if the btn is showed
@@ -40,10 +41,9 @@ class ButtonClass(pg.sprite.Sprite):
                     # Check if the mouse is pressed
                     if pg.mouse.get_pressed()[0] == True:
                         # Check if the mouse is on the button
-                        if mouse_pos[0] > self.pos[0] and mouse_pos[0] < self.pos[0] + self.size[0]:
-                            if mouse_pos[1] > self.pos[1] and mouse_pos[1] < self.pos[1] + self.size[1]:
-                                # TODO method here
-                                self.events[i] = True
+                        if mouse_pos[0] > self.pos[0] and mouse_pos[0] < self.pos[0] + self.size[0] and mouse_pos[1] > self.pos[1] and mouse_pos[1] < self.pos[1] + self.size[1]:
+                            # TODO method here
+                            self.events[i] = True
                     else:
                         self.events[i] = False
 
@@ -53,10 +53,9 @@ class ButtonClass(pg.sprite.Sprite):
                 # Check if the btn is showed
                 if self.spriteBtn.state == "Showed":
                     # Check if the mouse is on the button
-                    if mouse_pos[0] > self.pos[0] and mouse_pos[0] < self.pos[0] + self.size[0]:
-                        if mouse_pos[1] > self.pos[1] and mouse_pos[1] < self.pos[1] + self.size[1]:
-                            # TODO method here
-                            self.events[i] = True
+                    if mouse_pos[0] > self.pos[0] and mouse_pos[0] < self.pos[0] + self.size[0] and mouse_pos[1] > self.pos[1] and mouse_pos[1] < self.pos[1] + self.size[1]:
+                        # TODO method here
+                        self.events[i] = True
                     else:
                         self.events[i] = False
 
@@ -67,8 +66,7 @@ class ButtonClass(pg.sprite.Sprite):
                     # Check if the mouse is pressed
                     if pg.mouse.get_pressed()[0] == False:
                         # Check if the mouse is on the button
-                        if mouse_pos[0] > self.pos[0] and mouse_pos[0] < self.pos[0] + self.size[0]:
-                            if mouse_pos[1] > self.pos[1] and mouse_pos[1] < self.pos[1] + self.size[1]:
+                        if mouse_pos[0] > self.pos[0] and mouse_pos[0] < self.pos[0] + self.size[0] and mouse_pos[1] > self.pos[1] and mouse_pos[1] < self.pos[1] + self.size[1]:
                                 # TODO method here
                                 self.events[i] = True
                     else:
@@ -79,15 +77,11 @@ class ButtonClass(pg.sprite.Sprite):
                 # Check if the btn is showed
                 if self.spriteBtn.state == "Showed":
                     # Check if the mouse is on the button
-                    if not mouse_pos[0] > self.pos[0] and not mouse_pos[0] < self.pos[0] + self.size[0]:
-                        if not mouse_pos[1] > self.pos[1] and not mouse_pos[1] < self.pos[1] + self.size[1]:
-                            # TODO method here
-                            self.events[i] = True
-
+                    if not mouse_pos[0] > self.pos[0] and not mouse_pos[0] < self.pos[0] + self.size[0] and not mouse_pos[1] > self.pos[1] and not mouse_pos[1] < self.pos[1] + self.size[1]:
+                        # TODO method here
+                        self.events[i] = True
                     else:
                         self.events[i] = False
-
-
 
 
     def draw(self):

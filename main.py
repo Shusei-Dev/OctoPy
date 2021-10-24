@@ -11,6 +11,8 @@ class OctoPy():
 
     def __init__(self):
         """Init method of the main class, settings all parameters like fullscreen, fps, version and more..."""
+        pg.mixer.pre_init(44100, -16, 2, 2048)
+        pg.mixer.init()
         pg.init()
 
         self.fullscreen = False
@@ -18,6 +20,7 @@ class OctoPy():
         self.version = 0.1
         self.game_size = (1280, 720)
         self.fps = 60
+        self.show_fps = False
 
         self.previous_frame_time = 0
         self.dt = 0
@@ -56,7 +59,11 @@ class OctoPy():
     # Update method, update the display and the game function
     def update(self):
         global game_state
+
         pg.display.flip()
+
+        if self.show_fps:
+            print(int(self.mainClock.get_fps()))
 
         if game_state == 1 or game_state == 2:
             self.menu.update()
