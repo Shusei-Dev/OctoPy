@@ -47,3 +47,11 @@ class SpriteClass(pg.sprite.Sprite):
 
     def update(self):
         self.rect.topleft = (self.posX, self.posY)
+
+    def check_spriteState_changed(self):
+        self.old_sprite_state = self.state
+        if self.old_sprite_state != self.state:
+            self.old_sprite_state = self.state
+            return True
+        else:
+            return False

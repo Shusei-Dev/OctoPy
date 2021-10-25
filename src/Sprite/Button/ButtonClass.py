@@ -37,9 +37,9 @@ class ButtonClass(pg.sprite.Sprite):
             # Btn_pressed event is here
             if i == self.eventList[0]:
                 # Check if the btn is showed
-                if pg.mouse.get_pressed()[0] == True:
+                if self.spriteBtn.state == "Showed":
                     # Check if the mouse is pressed
-                    if self.spriteBtn.state == "Showed":
+                    if pg.mouse.get_pressed()[0] == True:
                         # Check if the mouse is on the button
                         if mouse_pos[0] > self.pos[0] and mouse_pos[0] < self.pos[0] + self.size[0] and mouse_pos[1] > self.pos[1] and mouse_pos[1] < self.pos[1] + self.size[1]:
                             # TODO method here

@@ -52,7 +52,7 @@ class MenuClass():
             if self.game_state == 2:
                 if btn.name in self.settingsBtnList:
                     if btn.name == "GraphismBtn" and self.settingsState["Graphism"] == True:
-                        print("AAA")
+                        pass
                     btn.draw()
 
 
@@ -85,10 +85,16 @@ class MenuClass():
             if btn.name == "BackBtn" and btn.events.get("btn_pressed") == True:
                 if self.game_state == 2:
                     self.game_state = 1
+                    self.settingsState["Graphism"] = False
 
             if btn.name == "GraphismBtn" and btn.events.get("btn_pressed") == True:
                 if self.game_state == 2:
+                    print("Test")
                     self.settingsState["Graphism"] = True
+
+            
+
+            #print(btn.spriteBtn.state)
 
         #print(self.game_state)
 
