@@ -56,9 +56,8 @@ class MenuClass():
                     btn.draw()
 
 
-
-
     def update(self):
+        OptionBtn_state = None
         for btn in self.btnList:
             btn.update()
 
@@ -68,16 +67,20 @@ class MenuClass():
             if btn.name == "PlayBtn" and btn.events.get("btn_pressed") == True:
                 if self.game_state == 1:
                     self.game_state = 3
+                    btn.events["btn_pressed"] = False
 
             # OptionBtn update here, will change the game_state to Settings state when is pressed
             if btn.name == "OptionBtn" and btn.events.get("btn_pressed") == True:
                 if self.game_state == 1:
                     self.game_state = 2
+                    btn.events["btn_pressed"] = False
 
             # ExitBtn update here, will change the game_state to Exit state when is pressed. Btn how closed the game
             if btn.name == "ExitBtn" and btn.events.get("btn_pressed") == True:
                 if self.game_state == 1:
+                    btn.events["btn_pressed"] = False
                     self.game_state = 0
+
 
             # -- SETTING PART --
 
@@ -86,13 +89,15 @@ class MenuClass():
                 if self.game_state == 2:
                     self.game_state = 1
                     self.settingsState["Graphism"] = False
+                    btn.events["btn_pressed"] = False
 
             if btn.name == "GraphismBtn" and btn.events.get("btn_pressed") == True:
                 if self.game_state == 2:
                     print("Test")
                     self.settingsState["Graphism"] = True
+                    btn.events["btn_pressed"] = False
 
-            
+
 
             #print(btn.spriteBtn.state)
 
