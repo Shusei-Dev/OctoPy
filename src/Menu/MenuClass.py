@@ -54,6 +54,9 @@ class MenuClass():
             if self.game_state == 2:
                 if btn.name in self.settingsBtnList:
                     if self.settingsState["Graphism"] == True:
+                        if btn.name == "BackBtn":
+                            btn.draw()
+                    else:
                         btn.draw()
 
 
@@ -90,17 +93,22 @@ class MenuClass():
 
             # BackBtn update here, will change the game_state to Menu state when is pressed
             if btn.name == "BackBtn" and btn.events.get("btn_pressed") == True:
-                if self.game_state == 2:
+                if self.game_state == 2 and self.settingsState["Graphism"] == False:
                     self.change_btn_state("BackBtn")
                     self.game_state = 1
+
+                if self.game_state == 2 and self.settingsState["Graphism"] == True:
+                    self.change_btn_state("BackBtn")
                     self.settingsState["Graphism"] = False
                     btn.events["btn_pressed"] = False
+
 
             if btn.name == "GraphismBtn" and btn.events.get("btn_pressed") == True:
                 if self.game_state == 2:
                     self.change_btn_state("GraphismBtn")
                     self.settingsState["Graphism"] = True
                     btn.events["btn_pressed"] = False
+
 
 
     def change_btn_state(self, btn_name):

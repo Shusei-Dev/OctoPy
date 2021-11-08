@@ -46,6 +46,7 @@ class SpriteClass(pg.sprite.Sprite):
             self.surface.blit(self.image, self.rect)
 
     def update(self):
+        self.posX, self.posY = self.pos[0], self.pos[1]
         self.rect.topleft = (self.posX, self.posY)
 
     def check_spriteState_changed(self):
