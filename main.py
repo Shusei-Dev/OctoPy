@@ -15,12 +15,14 @@ class OctoPy():
         pg.mixer.init()
         pg.init()
 
-        self.fullscreen = False
+        self.fullscreen = True
         self.name = "OctoPy RythmGame v"
         self.version = 0.1
         self.game_size = (1280, 720)
-        self.fps = 60
+        self.fps = 240
         self.show_fps = False
+
+        self.os_type = "Windows"
 
         self.previous_frame_time = 0
         self.dt = 0
