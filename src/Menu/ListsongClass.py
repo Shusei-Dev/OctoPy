@@ -8,6 +8,7 @@ class Listsong:
         self.screen = surface
         self.game_size = game_size
         self.game_state = game_state
+        self.game_state_value = game_state.get_game_state()
         self.btnList = []
         self.game_center = (self.game_size[0] / 2, self.game_size[1] / 2)
 
@@ -21,13 +22,17 @@ class Listsong:
             btn.event()
 
     def update(self):
+
+        self.game_state_value = self.game_state.get_game_state()
+
         for btn in self.btnList:
             btn.update()
 
             if btn.name == "BackBtn" and btn.events.get("btn_pressed") == True:
-                if self.game_state == 3:
+                if self.game_state_value == 3:
                     self.change_btn_state("BackBtn")
-                    self.game_state = 1
+                    self.game_state.change_game_state(1)
+                    btn.events["btn_pressed"] = False
 
     def change_btn_state(self, btn_name):
         for btn in self.btnList:

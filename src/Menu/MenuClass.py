@@ -11,6 +11,7 @@ class MenuClass():
         self.screen = surface
         self.game_size = game_size
         self.game_state = game_state
+        self.game_state_value = game_state.get_game_state()
         self.btnList = []
         self.game_center = (self.game_size[0] / 2, self.game_size[1] / 2)
 
@@ -49,11 +50,11 @@ class MenuClass():
     def draw(self):
         for btn in self.btnList:
 
-            if self.game_state == 1:
+            if self.game_state_value == 1:
                 if btn.name in self.menuBtnList:
                     btn.draw()
 
-            if self.game_state == 2:
+            if self.game_state_value == 2:
                 if btn.name in self.settingsBtnList:
                     if self.settingsState["Graphism"] == True:
                         if btn.name == "BackBtn":
@@ -63,6 +64,9 @@ class MenuClass():
 
 
     def update(self):
+
+        self.game_state_value = self.game_state.get_game_state()
+
         OptionBtn_state = None
         for btn in self.btnList:
             btn.update()
@@ -71,42 +75,42 @@ class MenuClass():
 
             # PlayBtn update here, will change the game_state to PlayList state when is pressed
             if btn.name == "PlayBtn" and btn.events.get("btn_pressed") == True:
-                if self.game_state == 1:
+                if self.game_state_value == 1:
                     self.change_btn_state("PlayBtn")
-                    self.game_state = 3
+                    self.game_state.change_game_state(3)
                     btn.events["btn_pressed"] = False
 
             # OptionBtn update here, will change the game_state to Settings state when is pressed
             if btn.name == "OptionBtn" and btn.events.get("btn_pressed") == True:
-                if self.game_state == 1:
+                if self.game_state_value == 1:
                     self.change_btn_state("OptionBtn")
-                    self.game_state = 2
+                    self.game_state.change_game_state(2)
                     btn.events["btn_pressed"] = False
 
             # ExitBtn update here, will change the game_state to Exit state when is pressed. Btn how closed the game
             if btn.name == "ExitBtn" and btn.events.get("btn_pressed") == True:
-                if self.game_state == 1:
+                if self.game_state_value == 1:
                     self.change_btn_state("ExitBtn")
                     btn.events["btn_pressed"] = False
-                    self.game_state = 0
+                    self.game_state.change_game_state(0)
 
 
             # -- SETTING PART --
 
             # BackBtn update here, will change the game_state to Menu state when is pressed
             if btn.name == "BackBtn" and btn.events.get("btn_pressed") == True:
-                if self.game_state == 2 and self.settingsState["Graphism"] == False:
+                if self.game_state_value == 2 and self.settingsState["Graphism"] == False:
                     self.change_btn_state("BackBtn")
-                    self.game_state = 1
+                    self.game_state.change_game_state(1)
 
-                if self.game_state == 2 and self.settingsState["Graphism"] == True:
+                if self.game_state_value == 2 and self.settingsState["Graphism"] == True:
                     self.change_btn_state("BackBtn")
                     self.settingsState["Graphism"] = False
                     btn.events["btn_pressed"] = False
 
 
             if btn.name == "GraphismBtn" and btn.events.get("btn_pressed") == True:
-                if self.game_state == 2:
+                if self.game_state_value == 2:
                     self.change_btn_state("GraphismBtn")
                     self.settingsState["Graphism"] = True
                     btn.events["btn_pressed"] = False

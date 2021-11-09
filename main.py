@@ -3,6 +3,7 @@ import time
 from pygame.locals import *
 from src.Menu.MenuClass import *
 from src.Menu.ListsongClass import *
+from src.Utils.StateManager import *
 
 BACKGROUND = "#000000"
 
@@ -26,8 +27,7 @@ class OctoPy():
         self.previous_frame_time = 0
         self.dt = 0
 
-        # 0 = Quit, 1 = Menu, 2 = Settings, 3 = PlayList, 4 = Play
-        self.game_state = 1
+        self.game_state = StateManager()
 
         self.screen = pg.display.set_mode(self.game_size, self.fullscreen)
         self.screen_size = self.screen.get_size()
@@ -48,38 +48,35 @@ class OctoPy():
     # Event menu, all event of the game start here.
     def event(self):
 
-        # Get the game state var of the menu class
-        self.game_state = self.menu.game_state
-
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                self.game_state = 0
+                self.game_state.change_game_state(0)
 
             # Menu event.
-            if self.game_state == 1 or self.game_state == 2:
+            if self.game_state.get_game_state() == 1 or self.game_state.get_game_state() == 2:
                 self.menu.event()
 
             # ListSong event.
-            if self.game_state == 3:
+            if self.game_state.get_game_state() == 3:
                 self.listsong.event()
 
             # When the ESCAPE Key is press'd the game will end.
             if event.type == pg.KEYDOWN:
                 if event.key == K_ESCAPE:
-                    self.game_state = 0
+                    self.game_state.change_game_state(0)
 
     # Update method, update the display and the game function
     def update(self):
-
+        print(self.game_state.get_game_state())
         pg.display.flip()
 
         if self.show_fps:
             print(int(self.mainClock.get_fps()))
 
-        if self.game_state == 1 or self.game_state == 2:
+        if self.game_state.get_game_state() == 1 or self.game_state.get_game_state() == 2:
             self.menu.update()
 
-        if self.game_state == 3:
+        if self.game_state.get_game_state() == 3:
             self.listsong.update()
 
 
@@ -88,15 +85,15 @@ class OctoPy():
 
         self.screen.fill(BACKGROUND)
 
-        if self.game_state == 1 or self.game_state == 2:
+        if self.game_state.get_game_state() == 1 or self.game_state.get_game_state() == 2:
             self.menu.draw()
 
-        if self.game_state == 3:
+        if self.game_state.get_game_state() == 3:
             self.listsong.draw()
 
     # Main loop of the game, everything here is VERY important because all method is call'd here.
     def main_loop(self):
-        while self.game_state != 0:
+        while self.game_state.get_game_state() != 0:
             self.event()
             self.update()
             self.draw()
