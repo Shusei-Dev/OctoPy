@@ -2,6 +2,7 @@ import pygame as pg
 import time
 from pygame.locals import *
 from src.Menu.MenuClass import *
+from src.Menu.ListsongClass import *
 
 # 0 = Quit, 1 = Menu, 2 = Settings, 3 = PlayList, 4 = Play
 game_state = 1
@@ -36,6 +37,7 @@ class OctoPy():
     # Init all main method.
     def init_method(self):
         self.menu = MenuClass(self.screen, self.game_size, game_state)
+        self.listsong = Listsong()
 
     def calculate_deltatime(self):
         self.dt = time.time() - self.previous_frame_time
