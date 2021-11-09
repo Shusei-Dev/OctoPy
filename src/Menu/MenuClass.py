@@ -20,15 +20,15 @@ class MenuClass():
 
         # The 3 Main Buttons (Play, Option, Exit)
         # Play Button here
-        self.btn_play_img = import_image("res/Buttons/play_btn.png")
+        self.btn_play_img = import_image("res/Buttons/Menu/play_btn.png")
         self.play_button = ButtonClass(self.screen, "PlayBtn", self.btn_play_img, (self.game_center[0] - 128 / 2, (self.game_center[1] - 63 / 2) - 85), None, {"btn_pressed": None, "btn_not_pressed": None})
         self.btnList.append(self.play_button)
         # Option Button here
-        self.btn_option_img = import_image("res/Buttons/option_btn.png")
+        self.btn_option_img = import_image("res/Buttons/Menu/option_btn.png")
         self.option_button = ButtonClass(self.screen, "OptionBtn", self.btn_option_img, (self.game_center[0] - 196 / 2, (self.game_center[1] - 86 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None})
         self.btnList.append(self.option_button)
         # Exit Button here
-        self.btn_exit_img = import_image("res/Buttons/exit_btn.png")
+        self.btn_exit_img = import_image("res/Buttons/Menu/exit_btn.png")
         self.exit_button = ButtonClass(self.screen, "ExitBtn", self.btn_exit_img, ((self.game_center[0] - 136 / 2), (self.game_center[1] - 74 / 2) + 25), None, {"btn_pressed": None, "btn_not_pressed": None})
         self.btnList.append(self.exit_button)
 
@@ -36,12 +36,12 @@ class MenuClass():
 
         # All Settings Button here
         # Back Button here
-        self.btn_back_img = import_image("res/Buttons/back_btn.png")
+        self.btn_back_img = import_image("res/Buttons/Menu/back_btn.png")
         self.back_button = ButtonClass(self.screen, "BackBtn", self.btn_back_img, (self.game_center[0] - 164 / 2, self.game_center[1] - (82 / 2) + 80), None, {"btn_pressed": None, "btn_not_pressed": None})
         self.btnList.append(self.back_button)
 
         # Graphism Button here
-        self.btn_graphism_img = import_image("res/Buttons/graphism_btn.png")
+        self.btn_graphism_img = import_image("res/Buttons/Menu/graphism_btn.png")
         self.graphism_button = ButtonClass(self.screen, "GraphismBtn", self.btn_graphism_img, (self.game_center[0] - 253 / 2, self.game_center[1] - (84 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None})
         self.btnList.append(self.graphism_button)
 

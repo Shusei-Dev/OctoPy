@@ -13,7 +13,7 @@ class Listsong:
         self.game_center = (self.game_size[0] / 2, self.game_size[1] / 2)
 
         # Import the back Btn
-        self.btn_back_img = import_image("res/Buttons/back_btn.png")
+        self.btn_back_img = import_image("res/Buttons/Menu/back_btn.png")
         self.back_button = ButtonClass(self.screen, "BackBtn", self.btn_back_img, (0, 0), None, {"btn_pressed": None, "btn_not_pressed": None})
         self.btnList.append(self.back_button)
 
