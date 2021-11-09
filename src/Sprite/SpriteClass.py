@@ -56,3 +56,7 @@ class SpriteClass(pg.sprite.Sprite):
             return True
         else:
             return False
+
+    def scaling_sprite(self, scale):
+        self.scale_img = pg.transform.scale(self.image, scale)
+        return self.scale_img

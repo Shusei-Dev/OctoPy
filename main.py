@@ -67,7 +67,6 @@ class OctoPy():
 
     # Update method, update the display and the game function
     def update(self):
-        print(self.game_state.get_game_state())
         pg.display.flip()
 
         if self.show_fps:
