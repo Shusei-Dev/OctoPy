@@ -4,6 +4,8 @@ from pygame.locals import *
 from src.Menu.MenuClass import *
 from src.Menu.ListsongClass import *
 from src.Utils.StateManager import *
+from src.Utils.FileManager import *
+from src.Utils.FontClass import *
 
 BACKGROUND = "#000000"
 
@@ -15,14 +17,28 @@ class OctoPy():
         pg.mixer.init()
         pg.init()
 
-        self.fullscreen = True
-        self.name = "OctoPy RythmGame v"
-        self.version = 0.1
-        self.game_size = (1280, 720)
-        self.fps = 240
-        self.show_fps = False
+        # VERY IMPORTANT, get the file content of the settings.yml where all option are implemented
+        self.settings_file_content = FileManager().get_file_content('files/settings.yml')
 
-        self.os_type = "Windows"
+        self.screen_size = (pg.display.Info().current_w, pg.display.Info().current_h)
+        # The basics game_size
+        self.game_size = (1280, 720)
+
+        # Check if the fullscreen is On on Off in the settings.yml file
+        if self.settings_file_content.get("fullscreen") == True:
+            self.game_size = self.screen_size
+            self.fullscreen = pg.FULLSCREEN
+        else:
+            self.fullscreen = False
+
+
+        self.name = self.settings_file_content.get("name")
+        self.version = self.settings_file_content.get("version")
+
+        self.fps = self.settings_file_content.get("fps")
+        self.show_fps = self.settings_file_content.get("show_fps")
+
+        self.os_type = self.settings_file_content.get("os_type")
 
         self.previous_frame_time = 0
         self.dt = 0
@@ -30,10 +46,13 @@ class OctoPy():
         self.game_state = StateManager()
 
         self.screen = pg.display.set_mode(self.game_size, self.fullscreen)
-        self.screen_size = self.screen.get_size()
         pg.display.set_caption(self.name + str(self.version))
 
         self.mainClock = pg.time.Clock()
+
+        # Init the fps_counter font
+        self.fps_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (20, 20), 20, (0, 255, 255))
+
 
     # Init all main method.
     def init_method(self):
@@ -69,9 +88,6 @@ class OctoPy():
     def update(self):
         pg.display.flip()
 
-        if self.show_fps:
-            print(int(self.mainClock.get_fps()))
-
         if self.game_state.get_game_state() == 1 or self.game_state.get_game_state() == 2:
             self.menu.update()
 
@@ -83,6 +99,10 @@ class OctoPy():
     def draw(self):
 
         self.screen.fill(BACKGROUND)
+
+        # Draw the fps_counter if the permision of it is on
+        if self.show_fps:
+            self.fps_counter.print_text_font(str(round(self.mainClock.get_fps())))
 
         if self.game_state.get_game_state() == 1 or self.game_state.get_game_state() == 2:
             self.menu.draw()
