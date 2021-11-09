@@ -1,5 +1,6 @@
 import pygame as pg
 from src.Sprite.Button.ButtonClass import *
+from src.Sprite.SpriteClass import *
 from src.Utils.utils import *
 from src.Menu.ListsongClass import *
 import time
@@ -7,8 +8,9 @@ import time
 
 class MenuClass():
 
-    def __init__(self, surface, game_size, game_state):
+    def __init__(self, surface, game_size, game_state, layered_group):
         self.screen = surface
+        self.layered_group = layered_group
         self.game_size = game_size
         self.game_state = game_state
         self.game_state_value = game_state.get_game_state()
@@ -20,30 +22,28 @@ class MenuClass():
 
         # The 3 Main Buttons (Play, Option, Exit)
         # Play Button here
-        self.btn_play_img = import_image("res/Buttons/Menu/play_btn.png")
-        self.play_button = ButtonClass(self.screen, "PlayBtn", self.btn_play_img, (self.game_center[0] - 128 / 2, (self.game_center[1] - 63 / 2) - 85), None, {"btn_pressed": None, "btn_not_pressed": None})
-        self.btnList.append(self.play_button)
+
+
+
+        self.play_button = self.create_btn("res/Buttons/Menu/play_btn.png", "PlayBtn", (self.game_center[0] - 128 / 2, (self.game_center[1] - 63 / 2) - 85), None, {"btn_pressed": None, "btn_not_pressed": None})
+        #self.layered_group.add(self.play_button.spriteBtn)
         # Option Button here
-        self.btn_option_img = import_image("res/Buttons/Menu/option_btn.png")
-        self.option_button = ButtonClass(self.screen, "OptionBtn", self.btn_option_img, (self.game_center[0] - 196 / 2, (self.game_center[1] - 86 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None})
-        self.btnList.append(self.option_button)
+        self.option_button = self.create_btn("res/Buttons/Menu/option_btn.png", "OptionBtn", (self.game_center[0] - 196 / 2, (self.game_center[1] - 86 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None})
         # Exit Button here
-        self.btn_exit_img = import_image("res/Buttons/Menu/exit_btn.png")
-        self.exit_button = ButtonClass(self.screen, "ExitBtn", self.btn_exit_img, ((self.game_center[0] - 136 / 2), (self.game_center[1] - 74 / 2) + 25), None, {"btn_pressed": None, "btn_not_pressed": None})
-        self.btnList.append(self.exit_button)
+        self.exit_button = self.create_btn("res/Buttons/Menu/exit_btn.png", "ExitBtn",((self.game_center[0] - 136 / 2), (self.game_center[1] - 74 / 2) + 25), None, {"btn_pressed": None, "btn_not_pressed": None})
 
         self.menuBtnList = ["PlayBtn", "OptionBtn", "ExitBtn"]
 
         # All Settings Button here
         # Back Button here
-        self.btn_back_img = import_image("res/Buttons/Menu/back_btn.png")
-        self.back_button = ButtonClass(self.screen, "BackBtn", self.btn_back_img, (self.game_center[0] - 164 / 2, self.game_center[1] - (82 / 2) + 80), None, {"btn_pressed": None, "btn_not_pressed": None})
-        self.btnList.append(self.back_button)
+        self.back_button = self.create_btn("res/Buttons/Menu/back_btn.png", "BackBtn", (self.game_center[0] - 164 / 2, self.game_center[1] - (82 / 2) + 80), None, {"btn_pressed": None, "btn_not_pressed": None})
 
         # Graphism Button here
-        self.btn_graphism_img = import_image("res/Buttons/Menu/graphism_btn.png")
-        self.graphism_button = ButtonClass(self.screen, "GraphismBtn", self.btn_graphism_img, (self.game_center[0] - 253 / 2, self.game_center[1] - (84 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None})
-        self.btnList.append(self.graphism_button)
+        self.graphism_button = self.create_btn("res/Buttons/Menu/graphism_btn.png", "GraphismBtn", (self.game_center[0] - 253 / 2, self.game_center[1] - (84 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None})
+        # Fullscreen Button here
+        self.fullscreen_img = import_image("res/Buttons/Menu/fullscreen_btn.png")
+        self.fullscreen_spr = SpriteClass(self.screen, "FullScreen_Sprite", self.fullscreen_img, (self.game_center[0] - (280 / 2) - 30, self.game_center[1] - (82 / 2) - 80), None, "Showed", "Text")
+        self.btnList.append(self.fullscreen_spr)
 
         self.settingsBtnList = ["BackBtn", "GraphismBtn"]
 
@@ -122,6 +122,11 @@ class MenuClass():
             if btn.name != btn_name:
                 btn.events["btn_pressed"] = False
 
+    def create_btn(self, path, name, pos, size, event):
+        self.btn_img = import_image(path)
+        self.btn = ButtonClass(self.screen, name, self.btn_img, pos, size, event)
+        self.btnList.append(self.btn)
+        return self.btn
 
     def event(self):
         for btn in self.btnList:
