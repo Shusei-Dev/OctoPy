@@ -1,6 +1,7 @@
 import pygame as pg
 from src.Sprite.Button.ButtonClass import *
 from src.Utils.utils import *
+from src.Menu.ListsongClass import *
 import time
 
 
@@ -12,6 +13,7 @@ class MenuClass():
         self.game_state = game_state
         self.btnList = []
         self.game_center = (self.game_size[0] / 2, self.game_size[1] / 2)
+
 
         self.settingsState = {"Graphism": False, "Sound": False, "Keys": False}
 
@@ -109,7 +111,7 @@ class MenuClass():
                     self.settingsState["Graphism"] = True
                     btn.events["btn_pressed"] = False
 
-            #print(self.game_state)
+
 
     def change_btn_state(self, btn_name):
         for btn in self.btnList:
