@@ -109,7 +109,7 @@ class MenuClass():
                     self.settingsState["Graphism"] = True
                     btn.events["btn_pressed"] = False
 
-
+            #print(self.game_state)
 
     def change_btn_state(self, btn_name):
         for btn in self.btnList:
