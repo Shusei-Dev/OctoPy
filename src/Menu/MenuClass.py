@@ -23,6 +23,7 @@ class MenuClass():
         self.btn_play_img = import_image("res/Buttons/Menu/play_btn.png")
         self.play_button = ButtonClass(self.screen, "PlayBtn", self.btn_play_img, (self.game_center[0] - 128 / 2, (self.game_center[1] - 63 / 2) - 85), None, {"btn_pressed": None, "btn_not_pressed": None})
         self.btnList.append(self.play_button)
+
         # Option Button here
         self.btn_option_img = import_image("res/Buttons/Menu/option_btn.png")
         self.option_button = ButtonClass(self.screen, "OptionBtn", self.btn_option_img, (self.game_center[0] - 196 / 2, (self.game_center[1] - 86 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None})
