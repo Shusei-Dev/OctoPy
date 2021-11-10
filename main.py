@@ -19,7 +19,7 @@ class OctoPy():
         pg.init()
 
         # VERY IMPORTANT, get the file content of the settings.yml where all option are implemented
-        self.settings_file_content = FileManager().get_file_content('files/settings.yml')
+        self.settings_file_content = FileManager().get_yml_content('files/settings.yml')
 
         self.screen_size = (pg.display.Info().current_w, pg.display.Info().current_h)
         # The basics game_size

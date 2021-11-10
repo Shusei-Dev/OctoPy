@@ -13,10 +13,13 @@ class MenuClass():
         self.layered_group = layered_group
         self.game_size = game_size
         self.game_state = game_state
-        self.game_state_value = game_state.get_game_state()
-        self.btnList = []
-        self.game_center = (self.game_size[0] / 2, self.game_size[1] / 2)
 
+        self.game_state_value = game_state.get_game_state()
+
+        self.btnList = []
+        self.textList = []
+
+        self.game_center = (self.game_size[0] / 2, self.game_size[1] / 2)
 
         self.settingsState = {"Graphism": False, "Sound": False, "Keys": False}
 
@@ -42,10 +45,13 @@ class MenuClass():
         self.graphism_button = self.create_btn("res/Buttons/Menu/graphism_btn.png", "GraphismBtn", (self.game_center[0] - 253 / 2, self.game_center[1] - (84 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None})
         # Fullscreen Button here
         self.fullscreen_img = import_image("res/Buttons/Menu/fullscreen_btn.png")
-        self.fullscreen_spr = SpriteClass(self.screen, "FullScreen_Sprite", self.fullscreen_img, (self.game_center[0] - (280 / 2) - 30, self.game_center[1] - (82 / 2) - 80), None, "Showed", "Text")
-        self.btnList.append(self.fullscreen_spr)
+        self.fullscreen_spr = SpriteClass(self.screen, "FullScreen_Txt", self.fullscreen_img, (self.game_center[0] - (280 / 2) - 30, self.game_center[1] - (82 / 2) - 80), None, "Showed", "Text")
+        self.textList.append(self.fullscreen_spr)
 
         self.settingsBtnList = ["BackBtn", "GraphismBtn"]
+
+        # List of all text in the Graphism Option
+        self.graphismTextList = ["FullScreen_Txt"]
 
     def draw(self):
         for btn in self.btnList:
@@ -62,6 +68,13 @@ class MenuClass():
                     else:
                         btn.draw()
 
+        for txt in self.textList:
+
+            if self.game_state_value == 2:
+                if txt.name in self.graphismTextList:
+                    if self.settingsState["Graphism"] == True:
+                        txt.draw()
+
 
     def update(self):
 
@@ -74,6 +87,7 @@ class MenuClass():
             # -- MENU PART --
 
             # PlayBtn update here, will change the game_state to PlayList state when is pressed
+
             if btn.name == "PlayBtn" and btn.events.get("btn_pressed") == True:
                 if self.game_state_value == 1:
                     self.change_btn_state("PlayBtn")
@@ -108,7 +122,7 @@ class MenuClass():
                     self.settingsState["Graphism"] = False
                     btn.events["btn_pressed"] = False
 
-
+            #GraphismBtn update here, will open the graphism option menu (change the settingsState)
             if btn.name == "GraphismBtn" and btn.events.get("btn_pressed") == True:
                 if self.game_state_value == 2:
                     self.change_btn_state("GraphismBtn")
