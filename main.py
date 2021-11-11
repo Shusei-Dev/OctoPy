@@ -19,7 +19,7 @@ class OctoPy():
         pg.init()
 
         # VERY IMPORTANT, get the file content of the settings.yml where all option are implemented
-        self.settings_file_content = FileManager().get_yml_content('files/settings.yml')
+        self.settings_file_content = get_yml_content('files/settings.yml')
 
         self.screen_size = (pg.display.Info().current_w, pg.display.Info().current_h)
         # The basics game_size
@@ -31,6 +31,7 @@ class OctoPy():
             self.fullscreen = pg.FULLSCREEN
         else:
             self.fullscreen = False
+            self.game_size = (1280, 720)
 
 
         self.name = self.settings_file_content.get("name")
@@ -93,11 +94,23 @@ class OctoPy():
     def update(self):
         pg.display.flip()
 
+        # Update the settings var content of the settings.yml file
+        self.settings_file_content = get_yml_content('files/settings.yml')
+
+        if self.settings_file_content.get("fullscreen") == True:
+            self.game_size = self.screen_size
+            self.fullscreen = pg.FULLSCREEN
+        else:
+            self.fullscreen = False
+            self.game_size = (1280, 720)
+
         if self.game_state.get_game_state() == 1 or self.game_state.get_game_state() == 2:
             self.menu.update()
 
         if self.game_state.get_game_state() == 3:
             self.listsong.update()
+
+        self.screen = pg.display.set_mode(self.game_size, self.fullscreen)
 
 
     # Draw method, it will draw everything on screen and refresh it.

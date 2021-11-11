@@ -3,6 +3,7 @@ from src.Sprite.Button.ButtonClass import *
 from src.Sprite.SpriteClass import *
 from src.Utils.utils import *
 from src.Menu.ListsongClass import *
+from src.Utils.FileManager import *
 import time
 
 
@@ -21,13 +22,13 @@ class MenuClass():
 
         self.game_center = (self.game_size[0] / 2, self.game_size[1] / 2)
 
+        # Import the settings.yml file
+        self.settings_file_content = get_yml_content('files/settings.yml')
+
         self.settingsState = {"Graphism": False, "Sound": False, "Keys": False}
 
         # The 3 Main Buttons (Play, Option, Exit)
         # Play Button here
-
-
-
         self.play_button = self.create_btn("res/Buttons/Menu/play_btn.png", "PlayBtn", (self.game_center[0] - 128 / 2, (self.game_center[1] - 63 / 2) - 85), None, {"btn_pressed": None, "btn_not_pressed": None})
         #self.layered_group.add(self.play_button.spriteBtn)
         # Option Button here
@@ -45,15 +46,20 @@ class MenuClass():
         self.graphism_button = self.create_btn("res/Buttons/Menu/graphism_btn.png", "GraphismBtn", (self.game_center[0] - 253 / 2, self.game_center[1] - (84 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None})
         # Fullscreen Button here
         self.fullscreen_img = import_image("res/Buttons/Menu/fullscreen_btn.png")
-        self.fullscreen_spr = SpriteClass(self.screen, "FullScreen_Txt", self.fullscreen_img, (self.game_center[0] - (280 / 2) - 30, self.game_center[1] - (82 / 2) - 80), None, "Showed", "Text")
+        self.fullscreen_spr = SpriteClass(self.screen, "FullScreen_Txt", self.fullscreen_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
         self.textList.append(self.fullscreen_spr)
+        # On/Off Button here
+        self.on_button = self.create_btn("res/Buttons/Menu/on_btn.png", "OnBtn", (self.game_center[0] - (50 / 2) + 50, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None})
+        self.off_button = self.create_btn("res/Buttons/Menu/off_btn.png", "OffBtn", (self.game_center[0] - (50 / 2) + 50, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None})
 
         self.settingsBtnList = ["BackBtn", "GraphismBtn"]
 
-        # List of all text in the Graphism Option
+        # List of all text and btn in the Graphism Option
         self.graphismTextList = ["FullScreen_Txt"]
+        self.graphismBtnList = ["BackBtn", "OnBtn", "OffBtn"]
 
     def draw(self):
+        # Draw all btn
         for btn in self.btnList:
 
             if self.game_state_value == 1:
@@ -61,13 +67,13 @@ class MenuClass():
                     btn.draw()
 
             if self.game_state_value == 2:
-                if btn.name in self.settingsBtnList:
-                    if self.settingsState["Graphism"] == True:
-                        if btn.name == "BackBtn":
-                            btn.draw()
-                    else:
+                if self.settingsState["Graphism"] == True:
+                    if btn.name in self.graphismBtnList:
                         btn.draw()
+                if btn.name in self.settingsBtnList and self.settingsState["Graphism"] == False:
+                    btn.draw()
 
+        # Draw all txt
         for txt in self.textList:
 
             if self.game_state_value == 2:
@@ -81,8 +87,12 @@ class MenuClass():
         self.game_state_value = self.game_state.get_game_state()
 
         OptionBtn_state = None
+        
         for btn in self.btnList:
             btn.update()
+
+            # Update the file content of the settings.yml
+            self.settings_file_content = get_yml_content('files/settings.yml')
 
             # -- MENU PART --
 
@@ -94,6 +104,7 @@ class MenuClass():
                     self.game_state.change_game_state(3)
                     btn.events["btn_pressed"] = False
 
+
             # OptionBtn update here, will change the game_state to Settings state when is pressed
             if btn.name == "OptionBtn" and btn.events.get("btn_pressed") == True:
                 if self.game_state_value == 1:
@@ -101,12 +112,13 @@ class MenuClass():
                     self.game_state.change_game_state(2)
                     btn.events["btn_pressed"] = False
 
+
             # ExitBtn update here, will change the game_state to Exit state when is pressed. Btn how closed the game
             if btn.name == "ExitBtn" and btn.events.get("btn_pressed") == True:
                 if self.game_state_value == 1:
                     self.change_btn_state("ExitBtn")
-                    btn.events["btn_pressed"] = False
                     self.game_state.change_game_state(0)
+                    btn.events["btn_pressed"] = False
 
 
             # -- SETTING PART --
@@ -116,6 +128,7 @@ class MenuClass():
                 if self.game_state_value == 2 and self.settingsState["Graphism"] == False:
                     self.change_btn_state("BackBtn")
                     self.game_state.change_game_state(1)
+                    btn.events["btn_pressed"] = False
 
                 if self.game_state_value == 2 and self.settingsState["Graphism"] == True:
                     self.change_btn_state("BackBtn")
@@ -128,6 +141,11 @@ class MenuClass():
                     self.change_btn_state("GraphismBtn")
                     self.settingsState["Graphism"] = True
                     btn.events["btn_pressed"] = False
+
+
+
+
+
 
 
 
