@@ -7,7 +7,7 @@ class SpriteClass(pg.sprite.Sprite):
     def __init__(self, surface=type(pg.Surface), name=str(), img=pg.image, pos=tuple(), size=tuple() or None, state=str(), type=str()):
         pg.sprite.Sprite.__init__(self)
 
-        self.typeList = ["Entity", "Object", "Tile", "Button"]
+        self.typeList = ["Entity", "Object", "Tile", "Button", "Text"]
         self.stateList = ["Hidden", "Showed"]
         self.surface = surface
         self.name = name
@@ -60,3 +60,6 @@ class SpriteClass(pg.sprite.Sprite):
     def scaling_sprite(self, scale):
         self.scale_img = pg.transform.scale(self.image, scale)
         return self.scale_img
+
+    def event(self):
+        pass

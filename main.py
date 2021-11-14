@@ -6,6 +6,7 @@ from src.Menu.ListsongClass import *
 from src.Utils.StateManager import *
 from src.Utils.FileManager import *
 from src.Utils.FontClass import *
+from src.Utils.LayerGroup import *
 
 BACKGROUND = "#000000"
 
@@ -18,7 +19,7 @@ class OctoPy():
         pg.init()
 
         # VERY IMPORTANT, get the file content of the settings.yml where all option are implemented
-        self.settings_file_content = FileManager().get_file_content('files/settings.yml')
+        self.settings_file_content = get_yml_content('files/settings.yml')
 
         self.screen_size = (pg.display.Info().current_w, pg.display.Info().current_h)
         # The basics game_size
@@ -30,6 +31,7 @@ class OctoPy():
             self.fullscreen = pg.FULLSCREEN
         else:
             self.fullscreen = False
+            self.game_size = (1280, 720)
 
 
         self.name = self.settings_file_content.get("name")
@@ -53,10 +55,14 @@ class OctoPy():
         # Init the fps_counter font
         self.fps_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (20, 20), 20, (0, 255, 255))
 
+        # Create the layer group for all sprite
+        self.layered_group = LayerGroup()
+
+
 
     # Init all main method.
     def init_method(self):
-        self.menu = MenuClass(self.screen, self.game_size, self.game_state)
+        self.menu = MenuClass(self.screen, self.game_size, self.game_state, self.layered_group.get_layer_group())
         self.listsong = Listsong(self.screen, self.game_size, self.game_state)
 
     def calculate_deltatime(self):
@@ -88,17 +94,31 @@ class OctoPy():
     def update(self):
         pg.display.flip()
 
+        # Update the settings var content of the settings.yml file
+        self.settings_file_content = get_yml_content('files/settings.yml')
+
+        if self.settings_file_content.get("fullscreen") == True:
+            self.game_size = self.screen_size
+            self.fullscreen = pg.FULLSCREEN
+        else:
+            self.fullscreen = False
+            self.game_size = (1280, 720)
+
         if self.game_state.get_game_state() == 1 or self.game_state.get_game_state() == 2:
             self.menu.update()
 
         if self.game_state.get_game_state() == 3:
             self.listsong.update()
 
+        self.screen = pg.display.set_mode(self.game_size, self.fullscreen)
+
 
     # Draw method, it will draw everything on screen and refresh it.
     def draw(self):
 
         self.screen.fill(BACKGROUND)
+
+        #self.layered_group.get_layer_group().draw(self.screen)
 
         # Draw the fps_counter if the permision of it is on
         if self.show_fps:

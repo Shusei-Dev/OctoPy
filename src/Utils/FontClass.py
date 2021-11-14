@@ -1,9 +1,10 @@
 import pygame as pg
 
 
-class Font:
+class Font(pg.sprite.Sprite):
 
     def __init__(self, screen, font_path, pos, size, color):
+        pg.sprite.Sprite.__init__(self)
         self.screen = screen
         self.font_color = color
         self.pos = pos
