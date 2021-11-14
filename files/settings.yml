@@ -4,9 +4,3 @@ name: OctoPy RythmGame v
 os_type: Windows
 show_fps: true
 version: 0.1
-<<<<<<< HEAD
-fps: 240
-show_fps: True
-os_type: Windows
-=======
->>>>>>> 147f2fad82750a153502f69f31ce25a4e38021d4

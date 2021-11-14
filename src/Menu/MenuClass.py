@@ -29,15 +29,8 @@ class MenuClass():
 
         # The 3 Main Buttons (Play, Option, Exit)
         # Play Button here
-<<<<<<< HEAD
-        self.btn_play_img = import_image("res/Buttons/Menu/play_btn.png")
-        self.play_button = ButtonClass(self.screen, "PlayBtn", self.btn_play_img, (self.game_center[0] - 128 / 2, (self.game_center[1] - 63 / 2) - 85), None, {"btn_pressed": None, "btn_not_pressed": None})
-        self.btnList.append(self.play_button)
-
-=======
         self.play_button = self.create_btn("res/Buttons/Menu/play_btn.png", "PlayBtn", (self.game_center[0] - 128 / 2, (self.game_center[1] - 63 / 2) - 85), None, {"btn_pressed": None, "btn_not_pressed": None})
         #self.layered_group.add(self.play_button.spriteBtn)
->>>>>>> 147f2fad82750a153502f69f31ce25a4e38021d4
         # Option Button here
         self.option_button = self.create_btn("res/Buttons/Menu/option_btn.png", "OptionBtn", (self.game_center[0] - 196 / 2, (self.game_center[1] - 86 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None})
         # Exit Button here
@@ -94,7 +87,7 @@ class MenuClass():
         self.game_state_value = self.game_state.get_game_state()
 
         OptionBtn_state = None
-        
+
         for btn in self.btnList:
             btn.update()
 
