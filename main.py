@@ -97,13 +97,6 @@ class OctoPy():
         # Update the settings var content of the settings.yml file
         self.settings_file_content = get_yml_content('files/settings.yml')
 
-        if self.settings_file_content.get("fullscreen") == True:
-            self.game_size = self.screen_size
-            self.fullscreen = pg.FULLSCREEN
-        else:
-            self.fullscreen = False
-            self.game_size = (1280, 720)
-
         if self.game_state.get_game_state() == 1 or self.game_state.get_game_state() == 2:
             self.menu.update()
 

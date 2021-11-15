@@ -42,8 +42,12 @@ class Listsong:
                     self.game_state.change_game_state(1)
                     btn.events["btn_pressed"] = False
 
+            # Change the modeleson boutton size when the mouse is on it
             if btn.name.__contains__("ModelesonBtn") and btn.events.get("mouse_on_btn"):
                 btn.spriteBtn.image = btn.spriteBtn.scaling_sprite((600, 150))
+
+            if btn.name.__contains__("ModelesonBtn") and not btn.events.get("mouse_on_btn"):
+                btn.spriteBtn.image = btn.spriteBtn.scaling_sprite((460, 100))
 
 
     def change_btn_state(self, btn_name):
