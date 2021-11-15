@@ -144,11 +144,6 @@ class MenuClass():
 
 
 
-
-
-
-
-
     def change_btn_state(self, btn_name):
         for btn in self.btnList:
             if btn.name != btn_name:
