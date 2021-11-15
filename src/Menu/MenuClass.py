@@ -160,9 +160,6 @@ class MenuClass():
                     self.settingsState["Graphism"] = True
                     btn.events["btn_pressed"] = False
 
-            if btn.events.get("mouse_on_btn") == True:
-                btn_img = btn.spriteBtn.image
-                print(btn_img)
 
 
 
