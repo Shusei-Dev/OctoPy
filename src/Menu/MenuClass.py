@@ -28,29 +28,29 @@ class MenuClass():
         self.settingsState = {"Graphism": False, "Sound": False, "Keys": False}
 
         # The 3 Main Buttons (Play, Option, Exit)
-        # Play Button here
-        self.play_button = self.create_btn("res/Buttons/Menu/play_btn.png", "PlayBtn", (self.game_center[0] - 128 / 2, (self.game_center[1] - 63 / 2) - 85), None, {"btn_pressed": None, "btn_not_pressed": None})
+        # Play Button heres
+        self.play_button = self.create_btn("res/Buttons/Menu/play_btn.png", "PlayBtn", (self.game_center[0] - 128 / 2, (self.game_center[1] - 63 / 2) - 85), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
         #self.layered_group.add(self.play_button.spriteBtn)
         # Option Button here
-        self.option_button = self.create_btn("res/Buttons/Menu/option_btn.png", "OptionBtn", (self.game_center[0] - 196 / 2, (self.game_center[1] - 86 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None})
+        self.option_button = self.create_btn("res/Buttons/Menu/option_btn.png", "OptionBtn", (self.game_center[0] - 196 / 2, (self.game_center[1] - 86 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
         # Exit Button here
-        self.exit_button = self.create_btn("res/Buttons/Menu/exit_btn.png", "ExitBtn",((self.game_center[0] - 136 / 2), (self.game_center[1] - 74 / 2) + 25), None, {"btn_pressed": None, "btn_not_pressed": None})
+        self.exit_button = self.create_btn("res/Buttons/Menu/exit_btn.png", "ExitBtn",((self.game_center[0] - 136 / 2), (self.game_center[1] - 74 / 2) + 25), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
 
         self.menuBtnList = ["PlayBtn", "OptionBtn", "ExitBtn"]
 
         # All Settings Button here
         # Back Button here
-        self.back_button = self.create_btn("res/Buttons/Menu/back_btn.png", "BackBtn", (self.game_center[0] - 164 / 2, self.game_center[1] - (82 / 2) + 80), None, {"btn_pressed": None, "btn_not_pressed": None})
+        self.back_button = self.create_btn("res/Buttons/Menu/back_btn.png", "BackBtn", (self.game_center[0] - 164 / 2, self.game_center[1] - (82 / 2) + 80), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
 
         # Graphism Button here
-        self.graphism_button = self.create_btn("res/Buttons/Menu/graphism_btn.png", "GraphismBtn", (self.game_center[0] - 253 / 2, self.game_center[1] - (84 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None})
+        self.graphism_button = self.create_btn("res/Buttons/Menu/graphism_btn.png", "GraphismBtn", (self.game_center[0] - 253 / 2, self.game_center[1] - (84 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
         # Fullscreen Button here
         self.fullscreen_img = import_image("res/Buttons/Menu/fullscreen_btn.png")
         self.fullscreen_spr = SpriteClass(self.screen, "FullScreen_Txt", self.fullscreen_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
         self.textList.append(self.fullscreen_spr)
         # On/Off Button here
-        self.on_button = self.create_btn("res/Buttons/Menu/on_btn.png", "OnBtn", (self.game_center[0] - (50 / 2) + 50, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None})
-        self.off_button = self.create_btn("res/Buttons/Menu/off_btn.png", "OffBtn", (self.game_center[0] - (50 / 2) + 50, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None})
+        #self.on_button = self.create_btn("res/Buttons/Menu/on_btn.png", "OnBtn", (self.game_center[0] - (50 / 2) + 50, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
+        #self.off_button = self.create_btn("res/Buttons/Menu/off_btn.png", "OffBtn", (self.game_center[0] - (50 / 2) + 50, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
 
         self.settingsBtnList = ["BackBtn", "GraphismBtn"]
 
@@ -104,6 +104,11 @@ class MenuClass():
                     self.game_state.change_game_state(3)
                     btn.events["btn_pressed"] = False
 
+            if btn.name == "PlayBtn" and btn.events.get("mouse_on_btn") == True:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/play_btn_press.png")
+
+            if btn.name == "PlayBtn" and btn.events.get("mouse_on_btn") == False:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/play_btn.png")
 
             # OptionBtn update here, will change the game_state to Settings state when is pressed
             if btn.name == "OptionBtn" and btn.events.get("btn_pressed") == True:
@@ -112,6 +117,12 @@ class MenuClass():
                     self.game_state.change_game_state(2)
                     btn.events["btn_pressed"] = False
 
+            if btn.name == "OptionBtn" and btn.events.get("mouse_on_btn") == True:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/option_btn_press.png")
+
+            if btn.name == "OptionBtn" and btn.events.get("mouse_on_btn") == False:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/option_btn.png")
+
 
             # ExitBtn update here, will change the game_state to Exit state when is pressed. Btn how closed the game
             if btn.name == "ExitBtn" and btn.events.get("btn_pressed") == True:
@@ -119,6 +130,13 @@ class MenuClass():
                     self.change_btn_state("ExitBtn")
                     self.game_state.change_game_state(0)
                     btn.events["btn_pressed"] = False
+
+            if btn.name == "ExitBtn" and btn.events.get("mouse_on_btn") == True:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/exit_btn_press.png")
+
+            if btn.name == "ExitBtn" and btn.events.get("mouse_on_btn") == False:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/exit_btn.png")
+
 
 
             # -- SETTING PART --
@@ -142,7 +160,9 @@ class MenuClass():
                     self.settingsState["Graphism"] = True
                     btn.events["btn_pressed"] = False
 
-
+            if btn.events.get("mouse_on_btn") == True:
+                btn_img = btn.spriteBtn.image
+                print(btn_img)
 
 
 
