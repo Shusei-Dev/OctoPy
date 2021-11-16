@@ -53,7 +53,7 @@ class OctoPy():
         self.mainClock = pg.time.Clock()
 
         # Init the fps_counter font
-        self.fps_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (20, 20), 20, (0, 255, 255))
+        self.fps_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (self.game_size[0] - 60, 20), 20, (0, 255, 255))
 
         # Create the layer group for all sprite
         self.layered_group = LayerGroup()
@@ -97,20 +97,13 @@ class OctoPy():
         # Update the settings var content of the settings.yml file
         self.settings_file_content = get_yml_content('files/settings.yml')
 
-        if self.settings_file_content.get("fullscreen") == True:
-            self.game_size = self.screen_size
-            self.fullscreen = pg.FULLSCREEN
-        else:
-            self.fullscreen = False
-            self.game_size = (1280, 720)
-
         if self.game_state.get_game_state() == 1 or self.game_state.get_game_state() == 2:
             self.menu.update()
 
         if self.game_state.get_game_state() == 3:
             self.listsong.update()
 
-        self.screen = pg.display.set_mode(self.game_size, self.fullscreen)
+
 
 
     # Draw method, it will draw everything on screen and refresh it.

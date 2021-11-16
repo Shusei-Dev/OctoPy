@@ -22,6 +22,7 @@ class Listsong:
         y = 100
         for i in range(3):
             self.modeleson_button = ButtonClass(self.screen, "ModelesonBtn" + str(i), self.btn_modeleson_img, (0,y), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
+            self.modeleson_button.spriteBtn.image_grande = self.modeleson_button.spriteBtn.scaling_sprite((600, 150))
             self.btnList.append(self.modeleson_button)
             y += 90
 
@@ -44,10 +45,10 @@ class Listsong:
 
             # Change the modeleson boutton size when the mouse is on it
             if btn.name.__contains__("ModelesonBtn") and btn.events.get("mouse_on_btn"):
-                btn.spriteBtn.image = btn.spriteBtn.scaling_sprite((600, 150))
+                btn.spriteBtn.image = btn.spriteBtn.image_grande
 
             if btn.name.__contains__("ModelesonBtn") and not btn.events.get("mouse_on_btn"):
-                btn.spriteBtn.image = btn.spriteBtn.scaling_sprite((460, 100))
+                btn.spriteBtn.image = btn.spriteBtn.image_petite
 
 
     def change_btn_state(self, btn_name):
