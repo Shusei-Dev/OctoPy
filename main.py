@@ -103,7 +103,7 @@ class OctoPy():
         if self.game_state.get_game_state() == 3:
             self.listsong.update()
 
-        self.screen = pg.display.set_mode(self.game_size, self.fullscreen)
+
 
 
     # Draw method, it will draw everything on screen and refresh it.

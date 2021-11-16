@@ -27,7 +27,9 @@ class SpriteClass(pg.sprite.Sprite):
         else:
             print("This is not an existing state")
 
-        self.image = img
+        self.image_petite = img
+        self.image_grande = img.copy()
+        self.image = self.image_petite
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.posX, self.posY)
 
@@ -61,8 +63,13 @@ class SpriteClass(pg.sprite.Sprite):
         self.scale_img = pg.transform.scale(self.image, scale)
         return self.scale_img
 
-    def change_sprite_image(self, img):
-        pass
 
+    def change_sprite_image(self, img):
+        #if btn.name == "PlayBtn" and btn.events.get("mouse_on_btn") == True:
+            #btn.spriteBtn.image = import_image("res/Buttons/Menu/play_btn_press.png")
+
+        #if btn.name == "PlayBtn" and btn.events.get("mouse_on_btn") == False:
+            #btn.spriteBtn.image = import_image("res/Buttons/Menu/play_btn.png")
+            pass
     def event(self):
         pass
