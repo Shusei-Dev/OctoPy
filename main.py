@@ -53,7 +53,7 @@ class OctoPy():
         self.mainClock = pg.time.Clock()
 
         # Init the fps_counter font
-        self.fps_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (20, 20), 20, (0, 255, 255))
+        self.fps_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (self.game_size[0] - 60, 20), 20, (0, 255, 255))
 
         # Create the layer group for all sprite
         self.layered_group = LayerGroup()
