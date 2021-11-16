@@ -14,7 +14,7 @@ class Listsong:
 
         # Import the back Btn
         self.btn_back_img = import_image("res/Buttons/Menu/back_btn.png")
-        self.back_button = ButtonClass(self.screen, "BackBtn", self.btn_back_img, (0, 0), None, {"btn_pressed": None, "btn_not_pressed": None})
+        self.back_button = ButtonClass(self.screen, "BackBtn", self.btn_back_img, (0, 0), None, {"btn_pressed": None,"mouse_on_btn": None, "btn_not_pressed": None})
         self.btnList.append(self.back_button)
 
         # Import the model of the song button
@@ -42,6 +42,12 @@ class Listsong:
                     self.change_btn_state("BackBtn")
                     self.game_state.change_game_state(1)
                     btn.events["btn_pressed"] = False
+
+            if btn.name == "BackBtn" and btn.events.get("mouse_on_btn") == True:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/back_btn_press.png")
+
+            if btn.name == "BackBtn" and btn.events.get("mouse_on_btn") == False:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/back_btn.png")
 
             # Change the modeleson boutton size when the mouse is on it
             if btn.name.__contains__("ModelesonBtn") and btn.events.get("mouse_on_btn"):
