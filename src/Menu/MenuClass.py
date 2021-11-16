@@ -153,6 +153,12 @@ class MenuClass():
                     self.settingsState["Graphism"] = False
                     btn.events["btn_pressed"] = False
 
+            if btn.name == "BackBtn" and btn.events.get("mouse_on_btn") == True:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/back_btn_press.png")
+
+            if btn.name == "BackBtn" and btn.events.get("mouse_on_btn") == False:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/back_btn.png")
+
             #GraphismBtn update here, will open the graphism option menu (change the settingsState)
             if btn.name == "GraphismBtn" and btn.events.get("btn_pressed") == True:
                 if self.game_state_value == 2:
