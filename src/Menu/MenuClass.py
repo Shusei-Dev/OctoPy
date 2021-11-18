@@ -25,9 +25,9 @@ class MenuClass():
         # Import the settings.yml file
         self.settings_file_content = get_yml_content('files/settings.yml')
 
-        self.settingsState = {"Graphism": False, "Sound": False, "Keys": False}
+        self.settingsState = {"Graphism": False, "Sounds": False, "Keys": False}
 
-        # The 3 Main Buttons (Play, Option, Exit)
+        # -- The 3 Main Buttons (Play, Option, Exit) --
         # Play Button heres
         self.play_button = self.create_btn("res/Buttons/Menu/play_btn.png", "PlayBtn", (self.game_center[0] - 128 / 2, (self.game_center[1] - 63 / 2) - 85), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
         #self.layered_group.add(self.play_button.spriteBtn)
@@ -38,25 +38,30 @@ class MenuClass():
 
         self.menuBtnList = ["PlayBtn", "OptionBtn", "ExitBtn"]
 
-        # All Settings Button here
+        # -- All Settings Button here --
         # Back Button here
         self.back_button = self.create_btn("res/Buttons/Menu/back_btn.png", "BackBtn", (self.game_center[0] - 164 / 2, self.game_center[1] - (82 / 2) + 80), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
-
         # Graphism Button here
         self.graphism_button = self.create_btn("res/Buttons/Menu/graphism_btn.png", "GraphismBtn", (self.game_center[0] - 253 / 2, self.game_center[1] - (84 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
+        # Sound Button here
+        self.sounds_button = self.create_btn("res/Buttons/Menu/sounds_btn.png", "SoundsBtn", (self.game_center[0] - 196 / 2, self.game_center[1] - (86 / 2) - 80), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
+
         # Fullscreen Button here
-        #self.fullscreen_img = import_image("res/Buttons/Menu/fullscreen_btn.png")
-        #self.fullscreen_spr = SpriteClass(self.screen, "FullScreen_Txt", self.fullscreen_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
-        #self.textList.append(self.fullscreen_spr)
+        self.fullscreen_img = import_image("res/Buttons/Menu/fullscreen_btn.png")
+        self.fullscreen_spr = SpriteClass(self.screen, "FullScreen_Txt", self.fullscreen_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
+        self.textList.append(self.fullscreen_spr)
         # On/Off Button here
         #self.on_button = self.create_btn("res/Buttons/Menu/on_btn.png", "OnBtn", (self.game_center[0] - (50 / 2) + 50, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
         #self.off_button = self.create_btn("res/Buttons/Menu/off_btn.png", "OffBtn", (self.game_center[0] - (50 / 2) + 50, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
 
-        self.settingsBtnList = ["BackBtn", "GraphismBtn"]
+        self.settingsBtnList = ["BackBtn", "GraphismBtn", "SoundsBtn"]
 
         # List of all text and btn in the Graphism Option
         self.graphismTextList = ["FullScreen_Txt"]
         self.graphismBtnList = ["BackBtn", "OnBtn", "OffBtn"]
+
+        # List of all btn in the Sounds Option
+        self.soundsBtnList = ["BackBtn"]
 
     def draw(self):
         # Draw all btn
@@ -67,11 +72,20 @@ class MenuClass():
                     btn.draw()
 
             if self.game_state_value == 2:
-                if self.settingsState["Graphism"] == True:
+
+                if btn.name in self.settingsBtnList and self.settingsState["Graphism"] == False and self.settingsState["Sounds"] == False:
+                    btn.draw()
+
+                if self.settingsState["Graphism"] == True and self.settingsState["Sounds"] == False:
                     if btn.name in self.graphismBtnList:
                         btn.draw()
-                if btn.name in self.settingsBtnList and self.settingsState["Graphism"] == False:
-                    btn.draw()
+
+                if self.settingsState["Sounds"] == True and self.settingsState["Graphism"] == False:
+                    if btn.name in self.soundsBtnList:
+                        btn.draw()
+
+
+
 
         # Draw all txt
         for txt in self.textList:
@@ -153,11 +167,29 @@ class MenuClass():
                     self.settingsState["Graphism"] = False
                     btn.events["btn_pressed"] = False
 
+                if self.game_state_value == 2 and self.settingsState["Sounds"] == True:
+                    self.change_btn_state("BackBtn")
+                    self.settingsState["Sounds"] = False
+                    btn.events["btn_pressed"] = False
+
             if btn.name == "BackBtn" and btn.events.get("mouse_on_btn") == True:
                 btn.spriteBtn.image = import_image("res/Buttons/Menu/back_btn_press.png")
 
             if btn.name == "BackBtn" and btn.events.get("mouse_on_btn") == False:
                 btn.spriteBtn.image = import_image("res/Buttons/Menu/back_btn.png")
+
+            #SoundsBtn update here, will open the sounds option menu
+            if btn.name == "SoundsBtn" and btn.events.get("btn_pressed") == True:
+                if self.game_state_value == 2:
+                    self.change_btn_state("SoundsBtn")
+                    self.settingsState["Sounds"] = True
+                    btn.events["btn_pressed"] = False
+
+            if btn.name == "SoundsBtn" and btn.events.get("mouse_on_btn") == True:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/sounds_btn_press.png")
+
+            if btn.name == "SoundsBtn" and btn.events.get("mouse_on_btn") == False:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/sounds_btn.png")
 
             #GraphismBtn update here, will open the graphism option menu (change the settingsState)
             if btn.name == "GraphismBtn" and btn.events.get("btn_pressed") == True:
@@ -165,6 +197,12 @@ class MenuClass():
                     self.change_btn_state("GraphismBtn")
                     self.settingsState["Graphism"] = True
                     btn.events["btn_pressed"] = False
+
+            if btn.name == "GraphismBtn" and btn.events.get("mouse_on_btn") == True:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/graphism_btn_press.png")
+
+            if btn.name == "GraphismBtn" and btn.events.get("mouse_on_btn") == False:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/graphism_btn.png")
 
 
     def change_btn_state(self, btn_name):
