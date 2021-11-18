@@ -42,12 +42,15 @@ class MenuClass():
         # Back Button here
         self.back_button = self.create_btn("res/Buttons/Menu/back_btn.png", "BackBtn", (self.game_center[0] - 164 / 2, self.game_center[1] - (82 / 2) + 80), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
         # Graphism Button here
-        self.graphism_button = self.create_btn("res/Buttons/Menu/graphism_btn.png", "GraphismBtn", (self.game_center[0] - 253 / 2, self.game_center[1] - (84 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
+        self.graphism_button = self.create_btn("res/Buttons/Menu/graphism_btn.png", "GraphismBtn", (self.game_center[0] - (253 / 2) + 17, self.game_center[1] - (84 / 2) - 30), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
         # Sound Button here
         self.sounds_button = self.create_btn("res/Buttons/Menu/sounds_btn.png", "SoundsBtn", (self.game_center[0] - 196 / 2, self.game_center[1] - (86 / 2) - 80), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
-
+        # Volume button here
+        self.volume_img = import_image("res/Buttons/Menu/volume_txt.png")
+        self.volume_spr = SpriteClass(self.screen, "Volume_Txt", self.volume_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
+        self.textList.append(self.volume_spr)
         # Fullscreen Button here
-        self.fullscreen_img = import_image("res/Buttons/Menu/fullscreen_btn.png")
+        self.fullscreen_img = import_image("res/Buttons/Menu/fullscreen_txt.png")
         self.fullscreen_spr = SpriteClass(self.screen, "FullScreen_Txt", self.fullscreen_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
         self.textList.append(self.fullscreen_spr)
         # On/Off Button here
@@ -61,6 +64,7 @@ class MenuClass():
         self.graphismBtnList = ["BackBtn", "OnBtn", "OffBtn"]
 
         # List of all btn in the Sounds Option
+        self.soundsTextList = ["Volume_Txt"]
         self.soundsBtnList = ["BackBtn"]
 
     def draw(self):
@@ -93,6 +97,10 @@ class MenuClass():
             if self.game_state_value == 2:
                 if txt.name in self.graphismTextList:
                     if self.settingsState["Graphism"] == True:
+                        txt.draw()
+
+                if txt.name in self.soundsTextList:
+                    if self.settingsState["Sounds"] == True:
                         txt.draw()
 
 
