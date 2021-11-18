@@ -2,15 +2,17 @@ import pygame as pg
 from src.Sprite.Button.ButtonClass import *
 from src.Utils.utils import *
 
+
 class Listsong:
 
-    def __init__(self, surface, game_size, game_state):
+    def __init__(self, surface, game_size, game_state, map_manager):
         self.screen = surface
         self.game_size = game_size
         self.game_state = game_state
         self.game_state_value = game_state.get_game_state()
         self.btnList = []
         self.game_center = (self.game_size[0] / 2, self.game_size[1] / 2)
+        self.mapManager = map_manager
 
         # Import the back Btn
         self.btn_back_img = import_image("res/Buttons/Menu/back_btn.png")
@@ -55,6 +57,13 @@ class Listsong:
 
             if btn.name.__contains__("ModelesonBtn") and not btn.events.get("mouse_on_btn"):
                 btn.spriteBtn.image = btn.spriteBtn.image_petite
+
+            if btn.name == "ModelesonBtn0" and btn.events.get("btn_pressed"):
+                if self.game_state_value == 3:
+                    self.change_btn_state("ModelesonBtn0")
+                    self.testMap = self.mapManager.loadMap("test_map")
+                    self.game_state.change_game_state(4)
+                    btn.events["btn_pressed"] = False
 
 
     def change_btn_state(self, btn_name):

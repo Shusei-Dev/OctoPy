@@ -1,0 +1,10 @@
+map_info:
+  music_path: ""
+  difficulty: 1.0
+  elements_nmb: 10
+  name: "Test Map"
+  author: "Shusei_Dev"
+  source:
+    compositor: "One True God"
+    song_name: "Give it to Me"
+  bmp: 120

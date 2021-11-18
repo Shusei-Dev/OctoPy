@@ -7,6 +7,7 @@ from src.Utils.StateManager import *
 from src.Utils.FileManager import *
 from src.Utils.FontClass import *
 from src.Utils.LayerGroup import *
+from src.Map.MapManager import *
 
 BACKGROUND = "#000000"
 
@@ -63,7 +64,8 @@ class OctoPy():
     # Init all main method.
     def init_method(self):
         self.menu = MenuClass(self.screen, self.game_size, self.game_state, self.layered_group.get_layer_group())
-        self.listsong = Listsong(self.screen, self.game_size, self.game_state)
+        self.mapManager = MapManager(self.screen)
+        self.listsong = Listsong(self.screen, self.game_size, self.game_state, self.mapManager)
 
     def calculate_deltatime(self):
         self.dt = time.time() - self.previous_frame_time
@@ -85,6 +87,10 @@ class OctoPy():
             if self.game_state.get_game_state() == 3:
                 self.listsong.event()
 
+            # MapManager event.
+            if self.game_state.get_game_state() == 4:
+                self.mapManager.event()
+
             # When the ESCAPE Key is press'd the game will end.
             if event.type == pg.KEYDOWN:
                 if event.key == K_ESCAPE:
@@ -102,6 +108,9 @@ class OctoPy():
 
         if self.game_state.get_game_state() == 3:
             self.listsong.update()
+
+        if self.game_state.get_game_state() == 4:
+            self.mapManager.update()
 
 
 
