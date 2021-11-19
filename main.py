@@ -112,7 +112,13 @@ class OctoPy():
         if self.game_state.get_game_state() == 4:
             self.mapManager.update()
 
-
+        # Update the screen size 
+        if self.settings_file_content.get("fullscreen") == True:
+            self.game_size = self.screen_size
+            self.fullscreen = pg.FULLSCREEN
+        else:
+            self.fullscreen = False
+            self.game_size = (1280, 720)
 
 
     # Draw method, it will draw everything on screen and refresh it.
