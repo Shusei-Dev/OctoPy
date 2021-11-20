@@ -1,6 +1,7 @@
-fps: 240
+fps: 120
 fullscreen: false
 name: OctoPy RythmGame v
 os_type: Windows
 show_fps: true
 version: 0.1
+volume: 25

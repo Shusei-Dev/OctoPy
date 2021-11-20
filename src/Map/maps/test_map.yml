@@ -1,5 +1,5 @@
 map_info:
-  music_path: ""
+  music_path: "res/Music/Give-It-To-Me.mp3"
   difficulty: 1.0
   elements_nmb: 10
   name: "Test Map"
@@ -7,4 +7,8 @@ map_info:
   source:
     compositor: "One True God"
     song_name: "Give it to Me"
-  bmp: 120
+  bpm: 108
+
+# So the first elements in à cell is the place holder, the second is for the timing and the third is for the type
+content:
+  - (1, )

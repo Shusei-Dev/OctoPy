@@ -15,7 +15,7 @@ class OctoPy():
 
     def __init__(self):
         """Init method of the main class, settings all parameters like fullscreen, fps, version and more..."""
-        pg.mixer.pre_init(44100, -16, 2, 2048)
+        pg.mixer.pre_init(22050, -16, 2, 1024)
         pg.mixer.init()
         pg.init()
 
@@ -60,7 +60,6 @@ class OctoPy():
         self.layered_group = LayerGroup()
 
 
-
     # Init all main method.
     def init_method(self):
         self.menu = MenuClass(self.screen, self.game_size, self.game_state, self.layered_group.get_layer_group())
@@ -69,7 +68,7 @@ class OctoPy():
 
     def calculate_deltatime(self):
         self.dt = time.time() - self.previous_frame_time
-        dt *= self.fps
+        self.dt *= self.fps
         self.previous_frame_time = time.time()
 
     # Event menu, all event of the game start here.
@@ -89,7 +88,7 @@ class OctoPy():
 
             # MapManager event.
             if self.game_state.get_game_state() == 4:
-                self.mapManager.event()
+                self.mapManager.event(event)
 
             # When the ESCAPE Key is press'd the game will end.
             if event.type == pg.KEYDOWN:
@@ -110,15 +109,17 @@ class OctoPy():
             self.listsong.update()
 
         if self.game_state.get_game_state() == 4:
-            self.mapManager.update()
+            self.mapManager.update(self.clockTick)
 
-        # Update the screen size 
+        # Update the screen size
         if self.settings_file_content.get("fullscreen") == True:
             self.game_size = self.screen_size
             self.fullscreen = pg.FULLSCREEN
         else:
             self.fullscreen = False
             self.game_size = (1280, 720)
+
+
 
 
     # Draw method, it will draw everything on screen and refresh it.
@@ -138,13 +139,16 @@ class OctoPy():
         if self.game_state.get_game_state() == 3:
             self.listsong.draw()
 
+        if self.game_state.get_game_state() == 4:
+            self.mapManager.draw()
+
     # Main loop of the game, everything here is VERY important because all method is call'd here.
     def main_loop(self):
         while self.game_state.get_game_state() != 0:
             self.event()
             self.update()
             self.draw()
-            self.mainClock.tick(self.fps)
+            self.clockTick = self.mainClock.tick(self.fps)
 
         pg.quit()
 
