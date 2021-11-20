@@ -1,15 +1,17 @@
 import pygame as pg
+from pygame.locals import *
 import os
-from src.Entity.Player.PlayerClass import *
+from src.Sprite.Entity.Player.PlayerClass import *
 from src.Utils.FileManager import *
 
 class MapManager:
 
     def __init__(self, surface):
-
         self.screen = surface
-        self.player = PlayerClass(self.screen)
         self.settings_file = get_yml_content("files/settings.yml")
+        self.startedMap = False
+
+        self.keyBind = {"base0": False, "base1": False, "base2": False, "base3": False, "base4": False, "base5": False, "base6": False, "base7": False}
 
     def event(self, event):
         if event.type == pg.KEYDOWN:
@@ -20,20 +22,34 @@ class MapManager:
                 if get_yml_content("files/settings.yml").get("volume") < 100:
                     change_yml_content("files/settings.yml", "volume", get_yml_content("files/settings.yml").get("volume") + 5)
 
+            for bases in range(0, 8):
+                if pg.key.name(event.key) == get_yml_content("files/settings.yml").get("controls").get("base" + str(bases)):
+                    self.keyBind["base" + str(bases)] = True
+
+        if event.type == pg.KEYUP:
+            for bases in range(0, 8):
+                if pg.key.name(event.key) == get_yml_content("files/settings.yml").get("controls").get("base" + str(bases)):
+                    self.keyBind["base" + str(bases)] = False
+
+
     def update(self, clockTick):
         self.settings_file = get_yml_content("files/settings.yml")
         self.setVolume(get_yml_content("files/settings.yml").get("volume"))
-
-
 
         self.delta_time = clockTick / 1000
         self.time_passed += self.delta_time
         self.current_beat = int(self.BPM / get_yml_content("files/settings.yml").get("fps") * self.time_passed)
 
-        print(self.current_beat)
+        for keysbind in range(0, 8):
+            if self.keyBind["base" + str(keysbind)] == True:
+                self.player.keyPressed("player_base" + str(keysbind))
+            if self.keyBind["base" + str(keysbind)] == False:
+                self.player.keyNotPressed("player_base" + str(keysbind))
+
 
     def draw(self):
-        pass
+        if self.startedMap:
+            self.player.draw()
 
     def loadMap(self, mapName):
         loadingFile = get_yml_content("src/Map/maps/" + mapName + ".yml")
@@ -50,14 +66,17 @@ class MapManager:
         return mapObj.get("Map_Info").get(t_var)
 
     def setVolume(self, volume):
-        pg.mixer.music.set_volume((volume/100)-0.05)
+        self.musicMap.set_volume((volume/1000))
 
     def startMap(self, mapObj):
-        pg.mixer.music.load(self.getMapInfo(mapObj, "music_path"))
+        self.player = PlayerClass(self.screen)
+
+        self.musicMap = pg.mixer.Sound(self.getMapInfo(mapObj, "music_path"))
         self.setVolume(get_yml_content("files/settings.yml").get("volume"))
 
         self.time_passed = 0
         self.current_beat = 0
         self.BPM = self.getMapInfo(mapObj, "bpm")
 
-        pg.mixer.music.play()
+        self.musicMap.play()
+        self.startedMap = True

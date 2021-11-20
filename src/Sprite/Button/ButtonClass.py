@@ -5,6 +5,8 @@ from src.Sprite.SpriteClass import *
 class ButtonClass(pg.sprite.Sprite):
 
     def __init__(self, surface=type(pg.Surface), name=str(), img=pg.image, pos=tuple(), size=tuple() or None, events=dict()):
+        pg.sprite.Sprite.__init__(self)
+
         self.screen = surface
         self.name = name
         self.img = img
@@ -44,7 +46,7 @@ class ButtonClass(pg.sprite.Sprite):
                         if mouse_pos[0] > self.pos[0] and mouse_pos[0] < self.pos[0] + self.size[0] and mouse_pos[1] > self.pos[1] and mouse_pos[1] < self.pos[1] + self.size[1]:
                             # TODO method here
                             self.events[i] = True
-                            
+
                     else:
                         self.events[i] = False
 
