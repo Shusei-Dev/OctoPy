@@ -1,3 +1,11 @@
+fps: 120
+fullscreen: false
+name: OctoPy RythmGame v
+os_type: Windows
+show_fps: true
+version: 0.1
+volume: 100
+
 controls:
   base0: j
   base1: k
@@ -7,10 +15,3 @@ controls:
   base5: s
   base6: d
   base7: f
-fps: 120
-fullscreen: false
-name: OctoPy RythmGame v
-os_type: Windows
-show_fps: true
-version: 0.1
-volume: 100
