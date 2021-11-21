@@ -63,7 +63,7 @@ class OctoPy():
     # Init all main method.
     def init_method(self):
         self.menu = MenuClass(self.screen, self.game_size, self.game_state, self.layered_group.get_layer_group())
-        self.mapManager = MapManager(self.screen)
+        self.mapManager = MapManager(self.screen, self.game_size)
         self.listsong = Listsong(self.screen, self.game_size, self.game_state, self.mapManager)
 
     def calculate_deltatime(self):

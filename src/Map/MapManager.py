@@ -6,10 +6,11 @@ from src.Utils.FileManager import *
 
 class MapManager:
 
-    def __init__(self, surface):
+    def __init__(self, surface, game_size):
         self.screen = surface
         self.settings_file = get_yml_content("files/settings.yml")
         self.startedMap = False
+        self.gameSize = game_size
 
         self.keyBind = {"base0": False, "base1": False, "base2": False, "base3": False, "base4": False, "base5": False, "base6": False, "base7": False}
 
@@ -45,6 +46,8 @@ class MapManager:
                 self.player.keyPressed("player_base" + str(keysbind))
             if self.keyBind["base" + str(keysbind)] == False:
                 self.player.keyNotPressed("player_base" + str(keysbind))
+        if self.startedMap:
+            self.player.update()
 
 
     def draw(self):
@@ -69,7 +72,7 @@ class MapManager:
         self.musicMap.set_volume((volume/1000))
 
     def startMap(self, mapObj):
-        self.player = PlayerClass(self.screen)
+        self.player = PlayerClass(self.screen, self.gameSize)
 
         self.musicMap = pg.mixer.Sound(self.getMapInfo(mapObj, "music_path"))
         self.setVolume(get_yml_content("files/settings.yml").get("volume"))

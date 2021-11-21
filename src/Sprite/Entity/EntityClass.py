@@ -3,7 +3,7 @@ from src.Sprite.SpriteClass import *
 
 class EntityClass(pg.sprite.Sprite):
 
-    def __init__(self, surface, name, img, pos, type,size=None):
+    def __init__(self, surface, name, img, pos, type, size=None):
         pg.sprite.Sprite.__init__(self)
 
         self.screen = surface
@@ -12,7 +12,7 @@ class EntityClass(pg.sprite.Sprite):
         self.pos = pos
         self.size = size
 
-        self.entityTypeList = ["KeyBase"]
+        self.entityTypeList = ["KeyBase", "KeyNote"]
         if type in self.entityTypeList:
             self.type = type
 
@@ -22,4 +22,5 @@ class EntityClass(pg.sprite.Sprite):
         self.entitySprite.draw()
 
     def update(self):
-        pass
+        self.entitySprite.pos = self.pos
+        self.entitySprite.update()
