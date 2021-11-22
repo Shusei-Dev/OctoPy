@@ -8,7 +8,7 @@ controls:
   base6: d
   base7: f
 fps: 240
-fullscreen: false
+fullscreen: true
 name: OctoPy RythmGame v
 os_type: Windows
 show_fps: true
