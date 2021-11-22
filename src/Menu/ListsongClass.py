@@ -62,7 +62,7 @@ class Listsong:
                 if self.game_state_value == 3:
                     self.change_btn_state("ModelesonBtn0")
                     self.testMap = self.mapManager.loadMap("test_map")
-                    self.mapManager.startMap(self.testMap)
+                    self.mapManager.initMap(self.testMap)
                     self.game_state.change_game_state(4)
                     btn.events["btn_pressed"] = False
 
