@@ -55,6 +55,11 @@ class MenuClass():
         self.fps_spr = SpriteClass(self.screen, "Fps_Txt", self.fps_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
         self.textList.append(self.fps_spr)
 
+        self.plus_img = import_image("res/Buttons/Menu/plus_btn.png")
+        self.plus_spr = SpriteClass(self.screen, "Plus_Btn", self.plus_img, (self.game_center[0] - (109 / 2) +0, self.game_center[1] - (59 / 2) -85), None, "Showed", "Text")
+        self.textList.append(self.plus_spr)
+
+
         self.fps3_img = import_image("res/Buttons/Menu/240_txt.png")
         self.fps3_spr = SpriteClass(self.screen, "Fps3_Txt", self.fps3_img, (self.game_center[0] - (109 / 2) +60, self.game_center[1] - (59 / 2) -85), None, "Showed", "Text")
         self.textList.append(self.fps3_spr)
@@ -63,7 +68,7 @@ class MenuClass():
 
         # List of all text and btn in the Graphism Option
         self.graphismTextList = ["Fps_Txt", "Fps3_Txt"]
-        self.graphismBtnList = ["BackBtn"]
+        self.graphismBtnList = ["BackBtn", "Plus_Btn"]
 
         # List of all btn in the Sounds Option
         self.soundsTextList = ["Volume_Txt"]
@@ -215,6 +220,8 @@ class MenuClass():
             if btn.name == "GraphismBtn" and btn.events.get("mouse_on_btn") == False:
                 btn.spriteBtn.image = import_image("res/Buttons/Menu/graphism_btn.png")
 
+            # Buttons + and - here
+            
 
 
     def change_btn_state(self, btn_name):
