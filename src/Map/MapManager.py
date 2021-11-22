@@ -63,6 +63,11 @@ class MapManager:
             mapDataInfo = self.mapData.get("Map_Info")
             mapDataInfo[elements[0]] = elements[1]
 
+        c = 0
+        for elements in loadingFile["content"]:
+            mapDataContent = self.mapData.get("Map_Content")
+            mapDataContent.append(elements)
+
         return self.mapData
 
     def getMapInfo(self, mapObj, t_var):
