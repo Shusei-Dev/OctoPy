@@ -232,6 +232,7 @@ class MenuClass():
                     change_yml_content('files/settings.yml', "fullscreen", False)
                     btn.events["btn_pressed"] = False
 
+
     def change_btn_state(self, btn_name):
         for btn in self.btnList:
             if btn.name != btn_name:
@@ -246,3 +247,6 @@ class MenuClass():
     def event(self):
         for btn in self.btnList:
             btn.event()
+
+    def screen_update(self):
+        pass
