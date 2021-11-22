@@ -55,10 +55,14 @@ class MenuClass():
         self.fps_spr = SpriteClass(self.screen, "Fps_Txt", self.fps_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
         self.textList.append(self.fps_spr)
 
+        self.fps3_img = import_image("res/Buttons/Menu/240_txt.png")
+        self.fps3_spr = SpriteClass(self.screen, "Fps3_Txt", self.fps3_img, (self.game_center[0] - (109 / 2) +60, self.game_center[1] - (59 / 2) -85), None, "Showed", "Text")
+        self.textList.append(self.fps3_spr)
+
         self.settingsBtnList = ["BackBtn", "GraphismBtn", "SoundsBtn"]
 
         # List of all text and btn in the Graphism Option
-        self.graphismTextList = ["Fps_Txt"]
+        self.graphismTextList = ["Fps_Txt", "Fps3_Txt"]
         self.graphismBtnList = ["BackBtn"]
 
         # List of all btn in the Sounds Option
