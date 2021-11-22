@@ -4,15 +4,17 @@ from src.Utils.utils import *
 
 class PlayerClass:
 
-    def __init__(self, surface):
+    def __init__(self, surface, game_size):
 
         self.screen = surface
         self.keyBaseList = []
-        self.playerX, self.playerY = (0, 0)
+        self.playerX, self.playerY = ((game_size[0] / 4) + 40, (game_size[1] / 4) - 180 )
+        self.gameSize = game_size
         self.createPlayer()
 
     def update(self):
-        pass
+        for keyBase in self.keyBaseList:
+            keyBase.update()
 
     def event(self):
         pass
@@ -22,7 +24,7 @@ class PlayerClass:
             keyBase.draw()
 
     def createPlayer(self):
-        keyBasePosList = [(285, 500), (438, 342), (436, 146), (285, 63), (94, 62), (13, 148), (12, 342), (94, 500)]
+        keyBasePosList = [(285 + self.playerX, 500 + self.playerY), (438 + self.playerX, 342 + self.playerY), (436 + self.playerX, 146 + self.playerY), (285 + self.playerX, 63 + self.playerY), (94 + self.playerX, 62 + self.playerY), (13 + self.playerX, 148 + self.playerY), (12 + self.playerX, 342 + self.playerY), (94 + self.playerX, 500 + self.playerY)]
         for keyBase in range(0, 8):
             self.createKeyBase("res/Player/player_base" + str(keyBase) + ".png", "player_base" + str(keyBase), keyBasePosList[keyBase])
 

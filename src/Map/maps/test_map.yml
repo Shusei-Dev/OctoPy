@@ -11,4 +11,4 @@ map_info:
 
 # So the first elements in à cell is the place holder, the second is for the timing and the third is for the type
 content:
-  - (1, )
+  - (1, 1, note)
