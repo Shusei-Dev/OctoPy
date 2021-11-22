@@ -93,7 +93,11 @@ class OctoPy():
             # When the ESCAPE Key is press'd the game will end.
             if event.type == pg.KEYDOWN:
                 if event.key == K_ESCAPE:
-                    self.game_state.change_game_state(0)
+                    if self.game_state.get_game_state() == 4:
+                        self.game_state.change_game_state(3)
+                        self.mapManager.stopMap()
+                    else:
+                        self.game_state.change_game_state(0)
 
     # Update method, update the display and the game function
     def update(self):
