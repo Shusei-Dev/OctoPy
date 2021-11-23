@@ -5,6 +5,7 @@ from src.Sprite.Entity.Player.PlayerClass import *
 from src.Sprite.Entity.Tiles.TileClass import *
 from src.Utils.FileManager import *
 from src.Utils.StateManager import *
+from src.Utils.utils import *
 
 class MapManager:
 
@@ -15,6 +16,9 @@ class MapManager:
         self.gameSize = game_size
 
         self.keyBind = {"base0": False, "base1": False, "base2": False, "base3": False, "base4": False, "base5": False, "base6": False, "base7": False}
+        self.noteImgList = [import_image("res/Key_Tiles/key_tile0"), import_image("res/Key_Tiles/key_tile1"), import_image("res/Key_Tiles/key_tile2"), import_image("res/Key_Tiles/key_tile3"), import_image("res/Key_Tiles/key_tile4"), import_image("res/Key_Tiles/key_tile5"), import_image("res/Key_Tiles/key_tile6"), import_image("res/Key_Tiles/key_tile7")]
+        self.noteReduce =
+        self.notePosList = [(285 + self.playerX, 500 + self.playerY), (438 + self.playerX, 342 + self.playerY), (436 + self.playerX, 146 + self.playerY), (285 + self.playerX, 63 + self.playerY), (94 + self.playerX, 62 + self.playerY), (13 + self.playerX, 148 + self.playerY), (12 + self.playerX, 342 + self.playerY), (94 + self.playerX, 500 + self.playerY)]
 
     def event(self, event):
         if event.type == pg.KEYDOWN:
@@ -92,7 +96,7 @@ class MapManager:
         self.tileList = []
 
         for elements in self.mapData.get("Map_Content"):
-            print(elements)
+            self.createNote
 
         self.startMap(mapObj)
 
@@ -106,6 +110,12 @@ class MapManager:
     def updateMap(self, mapObj):
         self.seconde = int((pg.time.get_ticks() - self.clockTick) / 1000)
         print(self.seconde)
+
+    def createNote(self, name, pos):
+        if pos == 0:
+            tile = TileClass(self.screen, self.noteImgList[pos], name, (0,0), "note")
+            tile.
+            self.tileList.append()
 
     def stopMap(self):
         if self.startedMap[1] != None:
