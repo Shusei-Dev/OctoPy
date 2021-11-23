@@ -106,3 +106,9 @@ class MapManager:
     def updateMap(self, mapObj):
         self.seconde = int((pg.time.get_ticks() - self.clockTick) / 1000)
         print(self.seconde)
+
+    def stopMap(self):
+        if self.startedMap[1] != None:
+            self.startedMap[0] = False
+            self.startedMap[1] = None
+            self.musicMap.stop()
