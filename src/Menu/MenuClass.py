@@ -50,9 +50,9 @@ class MenuClass():
         self.volume_spr = SpriteClass(self.screen, "Volume_Txt", self.volume_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
         self.textList.append(self.volume_spr)
         # Fullscreen Button here
-        self.fullscreen_img = import_image("res/Buttons/Menu/fullscreen_txt.png")
-        self.fullscreen_spr = SpriteClass(self.screen, "FullScreen_Txt", self.fullscreen_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
-        self.textList.append(self.fullscreen_spr)
+        self.gecran_img = import_image("res/Buttons/Menu/fullscreen_txt.png")
+        self.gecran_spr = SpriteClass(self.screen, "GecrandTxt", self.gecran_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
+        self.textList.append(self.gecran_spr)
         # On/Off Button here
         self.on_button = self.create_btn("res/Buttons/Menu/on_btn.png", "OnBtn", (self.game_center[0] - (50 / 2) + 50, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
         self.off_button = self.create_btn("res/Buttons/Menu/off_btn.png", "OffBtn", (self.game_center[0] - (50 / 2) + 50, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
@@ -61,25 +61,25 @@ class MenuClass():
         # Fps limit here
         # Fps Text here
         self.fps_img = import_image("res/Buttons/Menu/fps_txt.png")
-        self.fps_spr = SpriteClass(self.screen, "Fps_Txt", self.fps_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
+        self.fps_spr = SpriteClass(self.screen, "Fps_Txt", self.fps_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 30), None, "Showed", "Text")
         self.textList.append(self.fps_spr)
 
-        self.plus_button = self.create_btn("res/Buttons/Menu/plus_btn.png", "PlusBtn", (self.game_center[0] - (109 / 2) +135, self.game_center[1] - (59 / 2) -90), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
+        self.plus_button = self.create_btn("res/Buttons/Menu/plus_btn.png", "PlusBtn", (self.game_center[0] - (109 / 2) +135, self.game_center[1] - (59 / 2) -20), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
 
-        self.moins_button = self.create_btn("res/Buttons/Menu/moins_btn.png", "MoinsBtn", (self.game_center[0] - (109 / 2) +11, self.game_center[1] - (59 / 2) -85), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
+        self.moins_button = self.create_btn("res/Buttons/Menu/moins_btn.png", "MoinsBtn", (self.game_center[0] - (109 / 2) +11, self.game_center[1] - (59 / 2) -18), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
 
         self.fps3_img = import_image("res/Buttons/Menu/240_txt.png")
-        self.fps3_spr = SpriteClass(self.screen, "Fps3_Txt", self.fps3_img, (self.game_center[0] - (109 / 2) +60, self.game_center[1] - (59 / 2) -87), None, "Showed", "Text")
+        self.fps3_spr = SpriteClass(self.screen, "Fps3_Txt", self.fps3_img, (self.game_center[0] - (109 / 2) +60, self.game_center[1] - (59 / 2) -20), None, "Showed", "Text")
         self.textList.append(self.fps3_spr)
 
         self.fps2_img = import_image("res/Buttons/Menu/120_txt.png")
-        self.fps2_spr = SpriteClass(self.screen, "Fps2_Txt", self.fps2_img, (self.game_center[0] - (109 / 2) +60, self.game_center[1] - (59 / 2) -87), None, "Showed", "Text")
+        self.fps2_spr = SpriteClass(self.screen, "Fps2_Txt", self.fps2_img, (self.game_center[0] - (109 / 2) +60, self.game_center[1] - (59 / 2) -20), None, "Showed", "Text")
         self.textList.append(self.fps3_spr)
 
         self.settingsBtnList = ["BackBtn", "GraphismBtn", "SoundsBtn"]
 
         # List of all text and btn in the Graphism Option
-        self.graphismTextList = ["Fps_Txt", "Fps3_Txt", "Fps2_Txt" "FullScreen_Txt"]
+        self.graphismTextList = ["Fps_Txt", "Fps3_Txt", "Fps2_Txt" "FullscreenTxt"]
         self.graphismBtnList = ["BackBtn", "PlusBtn", "MoinsBtn", "OnBtn", "OffBtn"]
 
         # List of all btn in the Sounds Option
