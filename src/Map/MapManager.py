@@ -16,9 +16,10 @@ class MapManager:
         self.gameSize = game_size
 
         self.keyBind = {"base0": False, "base1": False, "base2": False, "base3": False, "base4": False, "base5": False, "base6": False, "base7": False}
+        self.noteImgList = [import_image("res/Key_Tiles/key_tile0.png"), import_image("res/Key_Tiles/key_tile1.png"), import_image("res/Key_Tiles/key_tile2.png"), import_image("res/Key_Tiles/key_tile3.png"), import_image("res/Key_Tiles/key_tile4.png"), import_image("res/Key_Tiles/key_tile5.png"), import_image("res/Key_Tiles/key_tile6.png"), import_image("res/Key_Tiles/key_tile7.png")]
+        self.noteReduce = None
 
-        self.noteImgList = {"key_tile0": import_image("res/Key_Tiles/key_tile0.png"), "key_tile1": import_image("res/Key_Tiles/key_tile1.png"), "key_tile2": import_image("res/Key_Tiles/key_tile2.png"), "key_tile3": import_image("res/Key_Tiles/key_tile3.png"), "key_tile4": import_image("res/Key_Tiles/key_tile4.png"),
-        "key_tile5": import_image("res/Key_Tiles/key_tile5.png"), "key_tile6": import_image("res/Key_Tiles/key_tile6.png"), "key_tile7": import_image("res/Key_Tiles/key_tile7.png")}
+
 
     def event(self, event):
         if event.type == pg.KEYDOWN:
@@ -89,6 +90,7 @@ class MapManager:
 
     def initMap(self, mapObj):
         self.player = PlayerClass(self.screen, self.gameSize)
+        self.notePosList = [(285 + self.player.playerX, 500 + self.player.playerY), (438 + self.player.playerX, 342 + self.player.playerY), (436 + self.player.playerX, 146 + self.player.playerY), (285 + self.player.playerX, 63 + self.player.playerY), (94 + self.player.playerX, 62 + self.player.playerY), (13 + self.player.playerX, 148 + self.player.playerY), (12 + self.player.playerX, 342 + self.player.playerY), (94 + self.player.playerX, 500 + self.player.playerY)]
 
         self.musicMap = pg.mixer.Sound(self.getMapInfo(mapObj, "music_path"))
         self.setVolume(get_yml_content("files/settings.yml").get("volume"))
@@ -115,6 +117,11 @@ class MapManager:
     def updateMap(self, mapObj):
         self.seconde = int((pg.time.get_ticks() - self.clockTick) / 1000)
         print(self.seconde)
+
+    def createNote(self, name, pos):
+        if pos == 0:
+            tile = TileClass(self.screen, self.noteImgList[pos], name, (0,0), "note")
+            self.tileList.append()
 
     def stopMap(self):
         if self.startedMap[1] != None:
