@@ -103,7 +103,7 @@ class MapManager:
 
         for elements in self.mapData.get("Map_Content"):
             if elements[0] == 0:
-                print('a')
+                pass
 
         self.startMap(mapObj)
 

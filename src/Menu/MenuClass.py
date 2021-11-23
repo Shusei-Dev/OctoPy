@@ -79,7 +79,7 @@ class MenuClass():
         self.settingsBtnList = ["BackBtn", "GraphismBtn", "SoundsBtn"]
 
         # List of all text and btn in the Graphism Option
-        self.graphismTextList = ["Fps_Txt", "Fps3_Txt", "Fps2_Txt" "FullscreenTxt"]
+        self.graphismTextList = ["Fps_Txt", "Fps3_Txt", "Fps2_Txt" "GecrandTxt"]
         self.graphismBtnList = ["BackBtn", "PlusBtn", "MoinsBtn", "OnBtn", "OffBtn"]
 
         # List of all btn in the Sounds Option
