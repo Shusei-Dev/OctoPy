@@ -102,8 +102,7 @@ class MapManager:
         self.tileList = []
 
         for elements in self.mapData.get("Map_Content"):
-            if elements[0] == 0:
-                pass
+            self.createNote("note" + str(elements), elements)
 
         self.startMap(mapObj)
 
@@ -121,7 +120,10 @@ class MapManager:
     def createNote(self, name, pos):
         if pos == 0:
             tile = TileClass(self.screen, self.noteImgList[pos], name, (0,0), "note")
-            self.tileList.append()
+            scalingTile = 2
+            tile.tileSprite.image_grande = pg.transform.smoothscale(tile.tileSprite.entitySprite.image_grande, (int(tile.tileSprite.entitySprite.size[0] / scalingTile), int(tile.tileSprite.entitySprite.size[1] / scalingTile)))
+            tile.tileSprite.image = self.tileSprite.image_grande
+            self.tileList.append(tile)
 
     def stopMap(self):
         if self.startedMap[1] != None:
