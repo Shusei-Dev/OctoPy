@@ -5,6 +5,7 @@ from src.Sprite.Entity.Player.PlayerClass import *
 from src.Sprite.Entity.Tiles.TileClass import *
 from src.Utils.FileManager import *
 from src.Utils.StateManager import *
+from src.Utils.utils import *
 
 class MapManager:
 
@@ -15,6 +16,9 @@ class MapManager:
         self.gameSize = game_size
 
         self.keyBind = {"base0": False, "base1": False, "base2": False, "base3": False, "base4": False, "base5": False, "base6": False, "base7": False}
+
+        self.noteImgList = {"key_tile0": import_image("res/Key_Tiles/key_tile0.png"), "key_tile1": import_image("res/Key_Tiles/key_tile1.png"), "key_tile2": import_image("res/Key_Tiles/key_tile2.png"), "key_tile3": import_image("res/Key_Tiles/key_tile3.png"), "key_tile4": import_image("res/Key_Tiles/key_tile4.png"),
+        "key_tile5": import_image("res/Key_Tiles/key_tile5.png"), "key_tile6": import_image("res/Key_Tiles/key_tile6.png"), "key_tile7": import_image("res/Key_Tiles/key_tile7.png")}
 
     def event(self, event):
         if event.type == pg.KEYDOWN:
@@ -58,6 +62,10 @@ class MapManager:
         if self.startedMap[0]:
             self.player.draw()
 
+            for tiles in self.tileList:
+                if tiles.tileSprite.state == "Showed":
+                    tiles.draw()
+
     def loadMap(self, mapName):
         loadingFile = get_yml_content("src/Map/maps/" + mapName + ".yml")
 
@@ -92,7 +100,8 @@ class MapManager:
         self.tileList = []
 
         for elements in self.mapData.get("Map_Content"):
-            print(elements)
+            if elements[0] == 0:
+                print('a')
 
         self.startMap(mapObj)
 

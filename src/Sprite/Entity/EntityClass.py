@@ -17,10 +17,12 @@ class EntityClass(pg.sprite.Sprite):
             self.type = type
 
         self.entitySprite = SpriteClass(self.screen, self.name, self.img, self.pos, self.size, "Showed", "Entity")
+        self.state = self.entitySprite.state
 
     def draw(self):
         self.entitySprite.draw()
 
     def update(self):
-        self.entitySprite.pos = self.pos
         self.entitySprite.update()
+        self.entitySprite.pos = self.pos
+        self.state = self.entitySprite.state
