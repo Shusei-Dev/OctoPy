@@ -51,11 +51,11 @@ class MenuClass():
         self.textList.append(self.volume_spr)
         # Fullscreen Button here
         self.fullscreen_img = import_image("res/Buttons/Menu/fullscreen_txt.png")
-        self.fullscreen_spr = SpriteClass(self.screen, "FullScreen_Txt", self.fullscreen_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
+        self.fullscreen_spr = SpriteClass(self.screen, "FullScreen_Txt", self.fullscreen_img, (self.game_center[0] - (109 / 2) -200, self.game_center[1] - (59 / 2) +0), None, "Showed", "Text")
         self.textList.append(self.fullscreen_spr)
         # On/Off Button here
-        self.on_button = self.create_btn("res/Buttons/Menu/on_btn.png", "OnBtn", (self.game_center[0] - (50 / 2) + 50, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
-        self.off_button = self.create_btn("res/Buttons/Menu/off_btn.png", "OffBtn", (self.game_center[0] - (50 / 2) + 50, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
+        self.on_button = self.create_btn("res/Buttons/Menu/on_btn.png", "OnBtn", (self.game_center[0] - (50 / 2) + 70, self.game_center[1] - (30 /2) - 13), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
+        self.off_button = self.create_btn("res/Buttons/Menu/off_btn.png", "OffBtn", (self.game_center[0] - (50 / 2) + 70, self.game_center[1] - (30 /2) - 13), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
 
 
         # Fps limit here
@@ -69,7 +69,7 @@ class MenuClass():
 
 
         self.fps3_img = import_image("res/Buttons/Menu/240_txt.png")
-        self.fps3_spr = SpriteClass(self.screen, "Fps3_Txt", self.fps3_img, (self.game_center[0] - (109 / 2) +60, self.game_center[1] - (59 / 2) -85), None, "Showed", "Text")
+        self.fps3_spr = SpriteClass(self.screen, "Fps3_Txt", self.fps3_img, (self.game_center[0] - (109 / 2) +60, self.game_center[1] - (59 / 2) -87), None, "Showed", "Text")
         self.textList.append(self.fps3_spr)
 
         self.settingsBtnList = ["BackBtn", "GraphismBtn", "SoundsBtn"]
@@ -242,6 +242,11 @@ class MenuClass():
                     btn.events["btn_pressed"] = False
                     self.screen = pg.display.set_mode((self.screen.get_width(), self.screen.get_height()), pg.FULLSCREEN)
 
+            if btn.name == "OffBtn" and btn.events.get("mouse_on_btn") == True:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/off_btn_press.png")
+
+            if btn.name == "OffBtn" and btn.events.get("mouse_on_btn") == False:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/off_btn.png")
 
             if btn.name == "OnBtn" and btn.events.get("btn_pressed") and self.on_button.spriteBtn.state == "Showed":
                 if self.game_state_value == 2 and self.settingsState["Graphism"] == True and self.settings_file_content.get("fullscreen") == True:
@@ -249,6 +254,12 @@ class MenuClass():
                     change_yml_content('files/settings.yml', "fullscreen", False)
                     btn.events["btn_pressed"] = False
                     self.screen = pg.display.set_mode((self.screen.get_width(), self.screen.get_height()), pg.SHOWN)
+
+            if btn.name == "OnBtn" and btn.events.get("mouse_on_btn") == True:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/on_btn_press.png")
+
+            if btn.name == "OnBtn" and btn.events.get("mouse_on_btn") == False:
+                btn.spriteBtn.image = import_image("res/Buttons/Menu/on_btn.png")
             # Buttons + and - here
 
 
