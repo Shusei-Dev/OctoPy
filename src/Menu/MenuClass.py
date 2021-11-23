@@ -14,7 +14,6 @@ class MenuClass():
         self.layered_group = layered_group
         self.game_size = game_size
         self.game_state = game_state
-
         self.game_state_value = game_state.get_game_state()
 
         self.btnList = []
@@ -46,44 +45,25 @@ class MenuClass():
         # Sound Button here
         self.sounds_button = self.create_btn("res/Buttons/Menu/sounds_btn.png", "SoundsBtn", (self.game_center[0] - 196 / 2, self.game_center[1] - (86 / 2) - 80), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
         # Volume Text here
-        self.volume_img = import_image("res/Buttons/Menu/volume_txt.png")
-        self.volume_spr = SpriteClass(self.screen, "Volume_Txt", self.volume_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
-        self.textList.append(self.volume_spr)
+        self.comingsoon_img = import_image("res/Buttons/Menu/comingsoon_txt.png")
+        self.comingsoon_spr = SpriteClass(self.screen, "Comingsoon_Txt", self.comingsoon_img, (self.game_center[0] - (109 / 2) - 75, self.game_center[1] - (59 / 2) - 50), None, "Showed", "Text")
+        self.textList.append(self.comingsoon_spr)
         # Fullscreen Button here
         self.gecran_img = import_image("res/Buttons/Menu/fullscreen_txt.png")
-        self.gecran_spr = SpriteClass(self.screen, "GecrandTxt", self.gecran_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 100), None, "Showed", "Text")
+        self.gecran_spr = SpriteClass(self.screen, "GecrandTxt", self.gecran_img, (self.game_center[0] - (109 / 2) - 200, self.game_center[1] - (59 / 2) - 88), None, "Showed", "Text")
         self.textList.append(self.gecran_spr)
         # On/Off Button here
-        self.on_button = self.create_btn("res/Buttons/Menu/on_btn.png", "OnBtn", (self.game_center[0] - (50 / 2) + 50, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
-        self.off_button = self.create_btn("res/Buttons/Menu/off_btn.png", "OffBtn", (self.game_center[0] - (50 / 2) + 50, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
-
-
-        # Fps limit here
-        # Fps Text here
-        self.fps_img = import_image("res/Buttons/Menu/fps_txt.png")
-        self.fps_spr = SpriteClass(self.screen, "Fps_Txt", self.fps_img, (self.game_center[0] - (109 / 2) - 120, self.game_center[1] - (59 / 2) - 30), None, "Showed", "Text")
-        self.textList.append(self.fps_spr)
-
-        self.plus_button = self.create_btn("res/Buttons/Menu/plus_btn.png", "PlusBtn", (self.game_center[0] - (109 / 2) +135, self.game_center[1] - (59 / 2) -20), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
-
-        self.moins_button = self.create_btn("res/Buttons/Menu/moins_btn.png", "MoinsBtn", (self.game_center[0] - (109 / 2) +11, self.game_center[1] - (59 / 2) -18), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
-
-        self.fps3_img = import_image("res/Buttons/Menu/240_txt.png")
-        self.fps3_spr = SpriteClass(self.screen, "Fps3_Txt", self.fps3_img, (self.game_center[0] - (109 / 2) +60, self.game_center[1] - (59 / 2) -20), None, "Showed", "Text")
-        self.textList.append(self.fps3_spr)
-
-        self.fps2_img = import_image("res/Buttons/Menu/120_txt.png")
-        self.fps2_spr = SpriteClass(self.screen, "Fps2_Txt", self.fps2_img, (self.game_center[0] - (109 / 2) +60, self.game_center[1] - (59 / 2) -20), None, "Showed", "Text")
-        self.textList.append(self.fps3_spr)
+        self.on_button = self.create_btn("res/Buttons/Menu/on_btn.png", "OnBtn", (self.game_center[0] - (50 / 2) + 90, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
+        self.off_button = self.create_btn("res/Buttons/Menu/off_btn.png", "OffBtn", (self.game_center[0] - (50 / 2) + 90, self.game_center[1] - (30 /2) - 102), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
 
         self.settingsBtnList = ["BackBtn", "GraphismBtn", "SoundsBtn"]
 
         # List of all text and btn in the Graphism Option
-        self.graphismTextList = ["Fps_Txt", "Fps3_Txt", "Fps2_Txt" "FullscreenTxt"]
+        self.graphismTextList = ["GecrandTxt"]
         self.graphismBtnList = ["BackBtn", "PlusBtn", "MoinsBtn", "OnBtn", "OffBtn"]
 
         # List of all btn in the Sounds Option
-        self.soundsTextList = ["Volume_Txt"]
+        self.soundsTextList = ["Comingsoon_Txt"]
         self.soundsBtnList = ["BackBtn"]
 
     def draw(self):
@@ -264,32 +244,6 @@ class MenuClass():
 
             if btn.name == "OnBtn" and btn.events.get("mouse_on_btn") == False:
                 btn.spriteBtn.image = import_image("res/Buttons/Menu/on_btn.png")
-            # Buttons + and - here
-
-            if btn.name == "PlusBtn" and btn.events.get("btn_pressed"):
-                if self.game_state_value == 2 and self.settingsState["Graphism"] == True:
-                    self.change_btn_state("PlusBtn")
-                    change_yml_content('files/settings.yml', "fps", 240)
-                    btn.events["btn_pressed"] = False
-
-            if btn.name == "PlusBtn" and btn.events.get("mouse_on_btn") == True:
-                btn.spriteBtn.image = import_image("res/Buttons/Menu/plus_btn_press.png")
-
-            if btn.name == "PlusBtn" and btn.events.get("mouse_on_btn") == False:
-                btn.spriteBtn.image = import_image("res/Buttons/Menu/plus_btn.png")
-
-            if btn.name == "MoinsBtn" and btn.events.get("btn_pressed"):
-                if self.game_state_value == 2 and self.settingsState["Graphism"] == True:
-                    self.change_btn_state("MoinsBtn")
-                    change_yml_content('files/settings.yml', "fps", 120)
-                    btn.events["btn_pressed"] = False
-
-            if btn.name == "MoinsBtn" and btn.events.get("mouse_on_btn") == True:
-                btn.spriteBtn.image = import_image("res/Buttons/Menu/moins_btn_press.png")
-
-            if btn.name == "MoinsBtn" and btn.events.get("mouse_on_btn") == False:
-                btn.spriteBtn.image = import_image("res/Buttons/Menu/moins_btn.png")
-
 
     def change_btn_state(self, btn_name):
         for btn in self.btnList:
