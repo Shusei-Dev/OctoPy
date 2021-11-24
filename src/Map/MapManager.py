@@ -62,8 +62,8 @@ class MapManager:
     def draw(self):
         if self.startedMap[0]:
             self.player.draw()
-
             for tiles in self.tileList:
+
                 if tiles.tileSprite.state == "Showed":
                     tiles.draw()
 
@@ -90,7 +90,8 @@ class MapManager:
 
     def initMap(self, mapObj):
         self.player = PlayerClass(self.screen, self.gameSize)
-        self.notePosList = [(285 + self.player.playerX, 500 + self.player.playerY), (438 + self.player.playerX, 342 + self.player.playerY), (436 + self.player.playerX, 146 + self.player.playerY), (285 + self.player.playerX, 63 + self.player.playerY), (94 + self.player.playerX, 62 + self.player.playerY), (13 + self.player.playerX, 148 + self.player.playerY), (12 + self.player.playerX, 342 + self.player.playerY), (94 + self.player.playerX, 500 + self.player.playerY)]
+        self.notePosX, self.notePosY = ((self.gameSize[0] / 2) - 90, (self.gameSize[1] / 2) - 100)
+        self.notePosList = [(104 + self.notePosX, 159 + self.notePosY), (160 + self.notePosX, 102 + self.notePosY), (160 + self.notePosX , 32 + self.notePosY), (104 + self.notePosX, 0 + self.notePosY), (32 + self.notePosX, 0 + self.notePosY), (0 + self.notePosX, 32 + self.notePosY), (0 + self.notePosX, 102 + self.notePosY), (32 + self.notePosX, 158 + self.notePosY)]
 
         self.musicMap = pg.mixer.Sound(self.getMapInfo(mapObj, "music_path"))
         self.setVolume(get_yml_content("files/settings.yml").get("volume"))
@@ -102,7 +103,8 @@ class MapManager:
         self.tileList = []
 
         for elements in self.mapData.get("Map_Content"):
-            self.createNote("note" + str(elements), elements)
+            if elements[2] == "note":
+                self.createNote("note" + str(len(self.tileList) + 1), elements[0])
 
         self.startMap(mapObj)
 
@@ -115,15 +117,15 @@ class MapManager:
 
     def updateMap(self, mapObj):
         self.seconde = int((pg.time.get_ticks() - self.clockTick) / 1000)
-        print(self.seconde)
 
     def createNote(self, name, pos):
-        if pos == 0:
-            tile = TileClass(self.screen, self.noteImgList[pos], name, (0,0), "note")
-            scalingTile = 2
-            tile.tileSprite.image_grande = pg.transform.smoothscale(tile.tileSprite.entitySprite.image_grande, (int(tile.tileSprite.entitySprite.size[0] / scalingTile), int(tile.tileSprite.entitySprite.size[1] / scalingTile)))
-            tile.tileSprite.image = self.tileSprite.image_grande
-            self.tileList.append(tile)
+        scalingTile = 4.5
+
+        tile = TileClass(self.screen, self.noteImgList[pos], name, self.notePosList[pos], "note")
+        tile.tileSprite.entitySprite.image_grande = pg.transform.smoothscale(tile.tileSprite.entitySprite.image_grande, (int(tile.tileSprite.entitySprite.size[0] / scalingTile), int(tile.tileSprite.entitySprite.size[1] / scalingTile)))
+        tile.tileSprite.entitySprite.image = tile.tileSprite.entitySprite.image_grande
+
+        self.tileList.append(tile)
 
     def stopMap(self):
         if self.startedMap[1] != None:

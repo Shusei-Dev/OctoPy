@@ -9,9 +9,17 @@ class TileClass:
         self.img = img
         self.name = name
         self.pos = pos
+        self.state = "Showed"
         self.tileType = ["note", "slider"]
         if type in self.tileType:
             self.type = type
 
-
         self.tileSprite = EntityClass(self.screen, self.name, self.img, self.pos, "KeyNote", None)
+
+    def draw(self):
+        self.tileSprite.draw()
+
+    def update(self):
+        self.tileSprite.pos = self.pos
+        self.tileSprite.state = self.state
+        self.tileSprite.draw()
