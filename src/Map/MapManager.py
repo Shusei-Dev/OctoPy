@@ -21,7 +21,7 @@ class MapManager:
         self.noteImgList = [import_image("res/Key_Tiles/key_tile0.png"), import_image("res/Key_Tiles/key_tile1.png"), import_image("res/Key_Tiles/key_tile2.png"), import_image("res/Key_Tiles/key_tile3.png"), import_image("res/Key_Tiles/key_tile4.png"), import_image("res/Key_Tiles/key_tile5.png"), import_image("res/Key_Tiles/key_tile6.png"), import_image("res/Key_Tiles/key_tile7.png")]
         self.noteReduce = None
 
-        
+
 
     def event(self, event):
         if event.type == pg.KEYDOWN:
@@ -68,6 +68,7 @@ class MapManager:
                 if tiles.state == "Showed" and tiles.showTime + 3 >= float("%.2f" % self.timer) and tiles.showTime <= float("%.2f" % self.timer):
                     tiles.draw()
             self.pts_counter.print_text_font(str(self.total_pts))
+            self.combo_counter.print_text_font(str())
 
 
     def loadMap(self, mapName):
@@ -102,6 +103,8 @@ class MapManager:
 
         self.pts_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (self.gameSize[0] - 60, self.gameSize[1] - 55), 20, (255, 255, 255))
 
+        self.combo_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (60, self.gameSize[1] - 55), 20, (255, 255, 255))
+
         self.scalingTile = 4.5
         self.velocity = 1
 
@@ -113,6 +116,7 @@ class MapManager:
         self.BPM = self.getMapInfo(mapObj, "bpm")
 
         self.total_pts = 0
+        self.combo = 0
 
         self.tileList = []
 
@@ -155,6 +159,7 @@ class MapManager:
                     if self.keyBind["base0"] and tiles.tileSprite.entitySprite.rect[0] > self.player.keyBaseList[0].entitySprite.rect[0] and tiles.tileSprite.entitySprite.rect[1] > (self.player.keyBaseList[0].entitySprite.rect[1] - 20):
                         tiles.state = "Hidden"
                         self.total_pts += 100
+                        self.combo += 1
 
 
                 if tiles.tilePlace == 1:
