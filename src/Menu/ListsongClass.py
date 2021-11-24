@@ -20,11 +20,11 @@ class Listsong:
         self.btnList.append(self.back_button)
 
         # Import the model of the song button
-        self.btn_modeleson_img = import_image("res/Buttons/ListSong/modeleson.png")
+        self.btn_modeleson_img = import_image("res/Buttons/ListSong/song1.png")
         y = 100
-        for i in range(3):
+        for i in range(1):
             self.modeleson_button = ButtonClass(self.screen, "ModelesonBtn" + str(i), self.btn_modeleson_img, (0,y), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
-            self.modeleson_button.spriteBtn.image_grande = self.modeleson_button.spriteBtn.scaling_sprite((600, 150))
+            self.modeleson_button.spriteBtn.image_grande = self.modeleson_button.spriteBtn.scaling_sprite((800, 150))
             self.btnList.append(self.modeleson_button)
             y += 90
 
