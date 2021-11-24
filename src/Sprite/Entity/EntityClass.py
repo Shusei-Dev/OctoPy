@@ -23,6 +23,6 @@ class EntityClass(pg.sprite.Sprite):
         self.entitySprite.draw()
 
     def update(self):
-        self.entitySprite.update()
         self.entitySprite.pos = self.pos
         self.state = self.entitySprite.state
+        self.entitySprite.update()

@@ -95,6 +95,9 @@ class MapManager:
         self.timer = 0
         self.dt = 0
 
+        self.scalingTile = 4.5
+        self.velocity = 1
+
         self.musicMap = pg.mixer.Sound(self.getMapInfo(mapObj, "music_path"))
         self.setVolume(get_yml_content("files/settings.yml").get("volume"))
 
@@ -120,16 +123,32 @@ class MapManager:
     def updateMap(self, mapObj):
         self.timer += self.dt
         self.dt = self.clock.tick(get_yml_content("files/settings.yml").get("fps")) / 1000
-        print("%.2f" % self.timer)
+
+        for tiles in self.tileList:
+            if tiles.tileSprite.state == "Showed" and tiles.showTime + 3 >= float("%.2f" % self.timer) and tiles.showTime <= float("%.2f" % self.timer):
+                if tiles.tilePlace == 0:
+                    tiles.pos = (tiles.pos[0], tiles.pos[1] + self.velocity)
+                    if tiles.toScale != tiles.scaling:
+                        tiles.toScale += 0.1
+                        self.scalingNote(tiles, tiles.toScale, False)
+            tiles.update()
 
     def createNote(self, name, pos, showTime):
-        scalingTile = 4.5
 
-        tile = TileClass(self.screen, self.noteImgList[pos], name, self.notePosList[pos], "note", showTime)
-        tile.tileSprite.entitySprite.image_grande = pg.transform.smoothscale(tile.tileSprite.entitySprite.image_grande, (int(tile.tileSprite.entitySprite.size[0] / scalingTile), int(tile.tileSprite.entitySprite.size[1] / scalingTile)))
+        tile = TileClass(self.screen, self.noteImgList[pos], name, self.notePosList[pos], "note", showTime, pos, self.scalingTile)
+        self.scalingNote(tile, self.scalingTile, True)
+        self.tileList.append(tile)
+
+    def scalingNote(self, tile, scaling, decrase):
+        if decrase:
+            tile.tileSprite.entitySprite.image_grande = pg.transform.smoothscale(tile.tileSprite.entitySprite.image, (int(tile.tileSprite.entitySprite.size[0] / scaling), int(tile.tileSprite.entitySprite.size[1] / scaling)))
+            tile.update()
+        else:
+            tile.tileSprite.entitySprite.image_grande = pg.transform.smoothscale(tile.tileSprite.entitySprite.image, (int(tile.tileSprite.entitySprite.size[0] * scaling), int(tile.tileSprite.entitySprite.size[1] * scaling)))
+            tile.update()
+
         tile.tileSprite.entitySprite.image = tile.tileSprite.entitySprite.image_grande
 
-        self.tileList.append(tile)
 
     def stopMap(self):
         if self.startedMap[1] != None:

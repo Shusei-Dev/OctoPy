@@ -3,7 +3,7 @@ from src.Sprite.Entity.EntityClass import *
 
 class TileClass:
 
-    def __init__(self, surface, img, name, pos, type, showTime):
+    def __init__(self, surface, img, name, pos, type, showTime, tilePlace, scaling):
 
         self.screen = surface
         self.img = img
@@ -11,6 +11,9 @@ class TileClass:
         self.pos = pos
         self.state = "Showed"
         self.showTime = showTime
+        self.tilePlace = tilePlace
+        self.scaling = scaling
+        self.toScale = 0
 
         self.tileType = ["note", "slider"]
         if type in self.tileType:
@@ -24,4 +27,4 @@ class TileClass:
     def update(self):
         self.tileSprite.pos = self.pos
         self.tileSprite.state = self.state
-        self.tileSprite.draw()
+        self.tileSprite.update()
