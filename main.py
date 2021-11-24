@@ -9,7 +9,7 @@ from src.Utils.FontClass import *
 from src.Utils.LayerGroup import *
 from src.Map.MapManager import *
 
-BACKGROUND = "#000000"
+BACKGROUND = "#000000" 
 
 class OctoPy():
 

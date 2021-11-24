@@ -20,6 +20,7 @@ class MapManager:
         self.keyBind = {"base0": False, "base1": False, "base2": False, "base3": False, "base4": False, "base5": False, "base6": False, "base7": False}
         self.noteImgList = [import_image("res/Key_Tiles/key_tile0.png"), import_image("res/Key_Tiles/key_tile1.png"), import_image("res/Key_Tiles/key_tile2.png"), import_image("res/Key_Tiles/key_tile3.png"), import_image("res/Key_Tiles/key_tile4.png"), import_image("res/Key_Tiles/key_tile5.png"), import_image("res/Key_Tiles/key_tile6.png"), import_image("res/Key_Tiles/key_tile7.png")]
         self.noteReduce = None
+        self.hp_bar = import_image("res/Player/hp_bar.png")
 
 
 
@@ -115,8 +116,12 @@ class MapManager:
         self.current_beat = 0
         self.BPM = self.getMapInfo(mapObj, "bpm")
 
+        self.screen.blit(self.hp_bar, (10,10))
+        self.hp = 125
+
         self.total_pts = 0
         self.combo = 0
+
 
         self.tileList = []
 
