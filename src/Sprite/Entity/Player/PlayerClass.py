@@ -29,7 +29,6 @@ class PlayerClass:
             self.createKeyBase("res/Player/player_base" + str(keyBase) + ".png", "player_base" + str(keyBase), keyBasePosList[keyBase])
 
     def createKeyBase(self, path, name, pos):
-
         key_img = import_image(path)
         keyBase = EntityClass(self.screen, name, key_img, pos, "KeyBase")
 
