@@ -11,11 +11,11 @@ map_info:
 
 # So the first elements in à cell is the place holder, the second is for the timing and the third is for the type
 content:
-  - [0, 1.00, note]
-  - [1, 1.20, note]
-  - [2, 1.40, note]
-  - [3, 1.60, note]
-  - [4, 1.80, note]
-  - [5, 2.00, note]
-  - [6, 2.20, note]
-  - [7, 2.40, note]
+  - [0, 1.05, note]
+  - [1, 1.10, note]
+  - [2, 1.15, note]
+  - [3, 1.20, note]
+  - [4, 1.25, note]
+  - [5, 1.30, note]
+  - [6, 1.35, note]
+  - [7, 1.40, note]
