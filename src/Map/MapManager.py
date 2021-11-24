@@ -6,6 +6,7 @@ from src.Sprite.Entity.Tiles.TileClass import *
 from src.Utils.FileManager import *
 from src.Utils.StateManager import *
 from src.Utils.utils import *
+from src.Utils.FontClass import *
 
 class MapManager:
 
@@ -20,6 +21,7 @@ class MapManager:
         self.noteImgList = [import_image("res/Key_Tiles/key_tile0.png"), import_image("res/Key_Tiles/key_tile1.png"), import_image("res/Key_Tiles/key_tile2.png"), import_image("res/Key_Tiles/key_tile3.png"), import_image("res/Key_Tiles/key_tile4.png"), import_image("res/Key_Tiles/key_tile5.png"), import_image("res/Key_Tiles/key_tile6.png"), import_image("res/Key_Tiles/key_tile7.png")]
         self.noteReduce = None
 
+        
 
     def event(self, event):
         if event.type == pg.KEYDOWN:
@@ -65,6 +67,8 @@ class MapManager:
             for tiles in self.tileList:
                 if tiles.state == "Showed" and tiles.showTime + 3 >= float("%.2f" % self.timer) and tiles.showTime <= float("%.2f" % self.timer):
                     tiles.draw()
+            self.pts_counter.print_text_font(str(self.total_pts))
+
 
     def loadMap(self, mapName):
         loadingFile = get_yml_content("src/Map/maps/" + mapName + ".yml")
@@ -96,6 +100,8 @@ class MapManager:
         self.timer = 0
         self.dt = 0
 
+        self.pts_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (self.gameSize[0] - 60, self.gameSize[1] - 55), 20, (255, 255, 255))
+
         self.scalingTile = 4.5
         self.velocity = 1
 
@@ -105,6 +111,8 @@ class MapManager:
         self.time_passed = 0
         self.current_beat = 0
         self.BPM = self.getMapInfo(mapObj, "bpm")
+
+        self.total_pts = 0
 
         self.tileList = []
 
@@ -146,7 +154,7 @@ class MapManager:
 
                     if self.keyBind["base0"] and tiles.tileSprite.entitySprite.rect[0] > self.player.keyBaseList[0].entitySprite.rect[0] and tiles.tileSprite.entitySprite.rect[1] > (self.player.keyBaseList[0].entitySprite.rect[1] - 20):
                         tiles.state = "Hidden"
-                        print("+1 Point")
+                        self.total_pts += 100
 
 
                 if tiles.tilePlace == 1:
@@ -159,6 +167,7 @@ class MapManager:
 
             tiles.update()
 
+        print(self.total_pts)
 
     def createNote(self, name, pos, showTime):
 
@@ -179,7 +188,6 @@ class MapManager:
 
     def check_hp(self):
         return self.player.hp
-
 
 
     def stopMap(self):
