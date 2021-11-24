@@ -3,13 +3,15 @@ from src.Sprite.Entity.EntityClass import *
 
 class TileClass:
 
-    def __init__(self, surface, img, name, pos, type):
+    def __init__(self, surface, img, name, pos, type, showTime):
 
         self.screen = surface
         self.img = img
         self.name = name
         self.pos = pos
         self.state = "Showed"
+        self.showTime = showTime
+
         self.tileType = ["note", "slider"]
         if type in self.tileType:
             self.type = type

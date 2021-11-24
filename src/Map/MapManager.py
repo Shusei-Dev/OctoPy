@@ -64,7 +64,7 @@ class MapManager:
             self.player.draw()
             for tiles in self.tileList:
 
-                if tiles.tileSprite.state == "Showed":
+                if tiles.tileSprite.state == "Showed" and tiles.showTime == self.seconde:
                     tiles.draw()
 
     def loadMap(self, mapName):
@@ -116,12 +116,12 @@ class MapManager:
         self.startedMap[1] = mapObj
 
     def updateMap(self, mapObj):
-        self.seconde = int((pg.time.get_ticks() - self.clockTick) / 1000)
+        self.seconde = (pg.time.get_ticks() - self.clockTick) / 1000
 
     def createNote(self, name, pos):
         scalingTile = 4.5
 
-        tile = TileClass(self.screen, self.noteImgList[pos], name, self.notePosList[pos], "note")
+        tile = TileClass(self.screen, self.noteImgList[pos], name, self.notePosList[pos], "note", )
         tile.tileSprite.entitySprite.image_grande = pg.transform.smoothscale(tile.tileSprite.entitySprite.image_grande, (int(tile.tileSprite.entitySprite.size[0] / scalingTile), int(tile.tileSprite.entitySprite.size[1] / scalingTile)))
         tile.tileSprite.entitySprite.image = tile.tileSprite.entitySprite.image_grande
 

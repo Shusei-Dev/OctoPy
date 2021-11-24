@@ -24,7 +24,8 @@ class Listsong:
         y = 100
         for i in range(1):
             self.modeleson_button = ButtonClass(self.screen, "ModelesonBtn" + str(i), self.btn_modeleson_img, (0,y), None, {"btn_pressed": None, "btn_not_pressed": None, "mouse_on_btn": None})
-            self.modeleson_button.spriteBtn.image_grande = self.modeleson_button.spriteBtn.scaling_sprite((800, 150))
+            scalingSize = 1.2
+            self.modeleson_button.spriteBtn.image_grande = self.modeleson_button.spriteBtn.scaling_sprite((int(self.modeleson_button.spriteBtn.size[0] * scalingSize), int(self.modeleson_button.spriteBtn.size[1] * scalingSize)))
             self.btnList.append(self.modeleson_button)
             y += 90
 
