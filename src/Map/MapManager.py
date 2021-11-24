@@ -20,7 +20,6 @@ class MapManager:
         self.noteReduce = None
 
 
-
     def event(self, event):
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_DOWN:
@@ -41,7 +40,6 @@ class MapManager:
 
 
     def update(self, clockTick):
-        self.clockTick = clockTick
         self.settings_file = get_yml_content("files/settings.yml")
         self.setVolume(get_yml_content("files/settings.yml").get("volume"))
 
@@ -55,6 +53,7 @@ class MapManager:
             if self.keyBind["base" + str(keysbind)] == False:
                 self.player.keyNotPressed("player_base" + str(keysbind))
         if self.startedMap[0]:
+
             self.player.update()
             self.updateMap(self.startedMap[1])
 
@@ -63,8 +62,7 @@ class MapManager:
         if self.startedMap[0]:
             self.player.draw()
             for tiles in self.tileList:
-
-                if tiles.tileSprite.state == "Showed" and tiles.showTime == self.seconde:
+                if tiles.tileSprite.state == "Showed" and tiles.showTime + 3 >= float("%.2f" % self.timer) and tiles.showTime <= float("%.2f" % self.timer):
                     tiles.draw()
 
     def loadMap(self, mapName):
@@ -93,6 +91,10 @@ class MapManager:
         self.notePosX, self.notePosY = ((self.gameSize[0] / 2) - 90, (self.gameSize[1] / 2) - 100)
         self.notePosList = [(104 + self.notePosX, 159 + self.notePosY), (160 + self.notePosX, 102 + self.notePosY), (160 + self.notePosX , 32 + self.notePosY), (104 + self.notePosX, 0 + self.notePosY), (32 + self.notePosX, 0 + self.notePosY), (0 + self.notePosX, 32 + self.notePosY), (0 + self.notePosX, 102 + self.notePosY), (32 + self.notePosX, 158 + self.notePosY)]
 
+        self.clock = pg.time.Clock()
+        self.timer = 0
+        self.dt = 0
+
         self.musicMap = pg.mixer.Sound(self.getMapInfo(mapObj, "music_path"))
         self.setVolume(get_yml_content("files/settings.yml").get("volume"))
 
@@ -104,7 +106,7 @@ class MapManager:
 
         for elements in self.mapData.get("Map_Content"):
             if elements[2] == "note":
-                self.createNote("note" + str(len(self.tileList) + 1), elements[0])
+                self.createNote("note" + str(len(self.tileList) + 1), elements[0], elements[1])
 
         self.startMap(mapObj)
 
@@ -116,12 +118,14 @@ class MapManager:
         self.startedMap[1] = mapObj
 
     def updateMap(self, mapObj):
-        self.seconde = (pg.time.get_ticks() - self.clockTick) / 1000
+        self.timer += self.dt
+        self.dt = self.clock.tick(get_yml_content("files/settings.yml").get("fps")) / 1000
+        print("%.2f" % self.timer)
 
-    def createNote(self, name, pos):
+    def createNote(self, name, pos, showTime):
         scalingTile = 4.5
 
-        tile = TileClass(self.screen, self.noteImgList[pos], name, self.notePosList[pos], "note", )
+        tile = TileClass(self.screen, self.noteImgList[pos], name, self.notePosList[pos], "note", showTime)
         tile.tileSprite.entitySprite.image_grande = pg.transform.smoothscale(tile.tileSprite.entitySprite.image_grande, (int(tile.tileSprite.entitySprite.size[0] / scalingTile), int(tile.tileSprite.entitySprite.size[1] / scalingTile)))
         tile.tileSprite.entitySprite.image = tile.tileSprite.entitySprite.image_grande
 
@@ -131,4 +135,5 @@ class MapManager:
         if self.startedMap[1] != None:
             self.startedMap[0] = False
             self.startedMap[1] = None
+            self.clockTick = 0
             self.musicMap.stop()
