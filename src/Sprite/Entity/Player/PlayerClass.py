@@ -10,6 +10,7 @@ class PlayerClass:
         self.keyBaseList = []
         self.playerX, self.playerY = ((game_size[0] / 4) + 40, (game_size[1] / 4) - 180 )
         self.gameSize = game_size
+        self.hp = 100
         self.createPlayer()
 
     def update(self):
@@ -47,3 +48,11 @@ class PlayerClass:
         for keys in self.keyBaseList:
             if keys.name == keyName:
                 keys.entitySprite.image = keys.entitySprite.image_grande
+
+
+    def loose_hp(self, nmb):
+        if self.hp > 0:
+            self.hp -= nmb
+
+    def create_hp_bar(self):
+        pass
