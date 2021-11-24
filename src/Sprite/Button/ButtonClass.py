@@ -91,5 +91,5 @@ class ButtonClass(pg.sprite.Sprite):
         self.spriteBtn.draw()
 
     def update(self):
-
-        pass
+        self.spriteBtn.pos = self.pos
+        self.spriteBtn.update()

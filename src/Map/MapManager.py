@@ -9,12 +9,13 @@ from src.Utils.utils import *
 
 class MapManager:
 
-    def __init__(self, surface, game_size):
+    def __init__(self, surface, game_size, game_state):
         self.screen = surface
+        self.game_state = game_state
         self.settings_file = get_yml_content("files/settings.yml")
         self.startedMap = [False, None]
         self.gameSize = game_size
-
+        self.gameover = False
         self.keyBind = {"base0": False, "base1": False, "base2": False, "base3": False, "base4": False, "base5": False, "base6": False, "base7": False}
         self.noteImgList = [import_image("res/Key_Tiles/key_tile0.png"), import_image("res/Key_Tiles/key_tile1.png"), import_image("res/Key_Tiles/key_tile2.png"), import_image("res/Key_Tiles/key_tile3.png"), import_image("res/Key_Tiles/key_tile4.png"), import_image("res/Key_Tiles/key_tile5.png"), import_image("res/Key_Tiles/key_tile6.png"), import_image("res/Key_Tiles/key_tile7.png")]
         self.noteReduce = None
@@ -120,7 +121,12 @@ class MapManager:
     def updateMap(self, mapObj):
         self.timer += self.dt
         self.dt = self.clock.tick(get_yml_content("files/settings.yml").get("fps")) / 1000
-        print("%.2f" % self.timer)
+        self.player.loose_hp(1)
+        if self.check_hp() == 0:
+            self.gameover = True
+            self.stopMap()
+            self.game_state.change_game_state(3)
+
 
     def createNote(self, name, pos, showTime):
         scalingTile = 4.5
@@ -130,6 +136,11 @@ class MapManager:
         tile.tileSprite.entitySprite.image = tile.tileSprite.entitySprite.image_grande
 
         self.tileList.append(tile)
+
+    def check_hp(self):
+        return self.player.hp
+
+
 
     def stopMap(self):
         if self.startedMap[1] != None:
