@@ -63,7 +63,7 @@ class MapManager:
         if self.startedMap[0]:
             self.player.draw()
             for tiles in self.tileList:
-                if tiles.tileSprite.state == "Showed" and tiles.showTime + 3 >= float("%.2f" % self.timer) and tiles.showTime <= float("%.2f" % self.timer):
+                if tiles.state == "Showed" and tiles.showTime + 3 >= float("%.2f" % self.timer) and tiles.showTime <= float("%.2f" % self.timer):
                     tiles.draw()
 
     def loadMap(self, mapName):
@@ -132,20 +132,33 @@ class MapManager:
 
 
         for tiles in self.tileList:
-            if tiles.tileSprite.state == "Showed" and tiles.showTime + 3 >= float("%.2f" % self.timer) and tiles.showTime <= float("%.2f" % self.timer):
+            if tiles.state == "Showed" and tiles.showTime + 3 >= float("%.2f" % self.timer) and tiles.showTime <= float("%.2f" % self.timer):
                 if tiles.tilePlace == 0:
-                    if float("%.2f" % tiles.toScale) < 0.8:
+                    if float("%.2f" % tiles.toScale) < 0.9:
                         tiles.toScale += 0.006
                         tiles.pos = (tiles.pos[0] + 0.02, tiles.pos[1] + self.velocity)
                         self.scalingNote(tiles, tiles.toScale, False)
 
+                    else:
+                    # La note est sorti du cadran donc le combo est cassé
+                        tiles.state = "Hidden"
+                        print("FAUTE")
+
+                    if self.keyBind["base0"] and tiles.tileSprite.entitySprite.rect[0] > self.player.keyBaseList[0].entitySprite.rect[0] and tiles.tileSprite.entitySprite.rect[1] > (self.player.keyBaseList[0].entitySprite.rect[1] - 20):
+                        tiles.state = "Hidden"
+                        print("+1 Point")
+
+
                 if tiles.tilePlace == 1:
-                    if float("%.2f" % tiles.toScale) < 0.8:
+                    if float("%.2f" % tiles.toScale) < 0.9:
                         tiles.toScale += 0.006
                         tiles.pos = (tiles.pos[0] + 0.5, tiles.pos[1] + self.velocity - 1)
                         self.scalingNote(tiles, tiles.toScale, False)
 
+
+
             tiles.update()
+
 
     def createNote(self, name, pos, showTime):
 
