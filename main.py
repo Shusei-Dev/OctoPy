@@ -53,6 +53,8 @@ class OctoPy():
 
         self.mainClock = pg.time.Clock()
 
+        self.background = import_image("res/Background/fondetoile.png")
+
         # Init the fps_counter font
         self.fps_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (self.game_size[0] - 60, 20), 20, (0, 255, 255))
 
@@ -124,12 +126,12 @@ class OctoPy():
             self.game_size = (1280, 720)
 
 
-
-
     # Draw method, it will draw everything on screen and refresh it.
     def draw(self):
 
         self.screen.fill(BACKGROUND)
+
+        self.screen.blit(self.background, self.background.get_rect())
 
         #self.layered_group.get_layer_group().draw(self.screen)
 

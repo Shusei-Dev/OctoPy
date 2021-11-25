@@ -69,7 +69,7 @@ class MapManager:
                 if tiles.state == "Showed" and tiles.showTime + 3 >= float("%.2f" % self.timer) and tiles.showTime <= float("%.2f" % self.timer):
                     tiles.draw()
             self.pts_counter.print_text_font(str(self.total_pts))
-            self.combo_counter.print_text_font(str())
+            self.combo_counter.print_text_font(str(self.combo))
 
 
     def loadMap(self, mapName):
@@ -102,7 +102,7 @@ class MapManager:
         self.timer = 0
         self.dt = 0
 
-        self.pts_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (self.gameSize[0] - 60, self.gameSize[1] - 55), 20, (255, 255, 255))
+        self.pts_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (self.gameSize[0] - 90, self.gameSize[1] - 55), 20, (255, 255, 255))
 
         self.combo_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (60, self.gameSize[1] - 55), 20, (255, 255, 255))
 
@@ -118,6 +118,7 @@ class MapManager:
 
         self.screen.blit(self.hp_bar, (10,10))
         self.hp = 125
+        self.hp < 126
 
         self.total_pts = 0
         self.combo = 0
@@ -141,7 +142,6 @@ class MapManager:
     def updateMap(self, mapObj):
         self.timer += self.dt
         self.dt = self.clock.tick(get_yml_content("files/settings.yml").get("fps")) / 1000
-        #self.player.loose_hp(1)
         if self.check_hp() == 0:
             self.gameover = True
             self.stopMap()
@@ -163,12 +163,22 @@ class MapManager:
                         self.player.loose_hp(10)
 
                         print("FAUTE")
+                        if self.hp != 0:
+                            self.hp = self.hp - 10
+
+                        self.combo = 0
 
                     if self.keyBind["base0"] and tiles.tileSprite.entitySprite.rect[0] > self.player.keyBaseList[0].entitySprite.rect[0] and tiles.tileSprite.entitySprite.rect[1] > (self.player.keyBaseList[0].entitySprite.rect[1] - 20):
                         tiles.state = "Hidden"
-                        self.total_pts += 100
+
+                        if self.combo != 0:
+                            self.total_pts += 100 * self.combo
+                        else:
+                            self.total_pts += 100
                         self.combo += 1
 
+                        if self.hp < 125:
+                            self.hp = self.hp + 3
 
             tiles.update()
 
