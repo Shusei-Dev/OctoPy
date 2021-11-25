@@ -14,6 +14,7 @@ class TileClass:
         self.tilePlace = tilePlace
         self.scaling = scaling
         self.toScale = 0
+        self.scaleCenter = (0, 0)
 
         self.tileType = ["note", "slider"]
         if type in self.tileType:

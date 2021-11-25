@@ -159,6 +159,9 @@ class MapManager:
                     else:
                     # La note est sorti du cadran donc le combo est cassé
                         tiles.state = "Hidden"
+                        self.combo = 0
+                        self.player.loose_hp(10)
+
                         print("FAUTE")
 
                     if self.keyBind["base0"] and tiles.tileSprite.entitySprite.rect[0] > self.player.keyBaseList[0].entitySprite.rect[0] and tiles.tileSprite.entitySprite.rect[1] > (self.player.keyBaseList[0].entitySprite.rect[1] - 20):
@@ -167,17 +170,7 @@ class MapManager:
                         self.combo += 1
 
 
-                if tiles.tilePlace == 1:
-                    if float("%.2f" % tiles.toScale) < 0.9:
-                        tiles.toScale += 0.006
-                        tiles.pos = (tiles.pos[0] + 0.5, tiles.pos[1] + self.velocity - 1)
-                        self.scalingNote(tiles, tiles.toScale, False)
-
-
-
             tiles.update()
-
-        print(self.total_pts)
 
     def createNote(self, name, pos, showTime):
 
