@@ -69,7 +69,7 @@ class MapManager:
                 if tiles.state == "Showed" and tiles.showTime + 3 >= float("%.2f" % self.timer) and tiles.showTime <= float("%.2f" % self.timer):
                     tiles.draw()
             self.pts_counter.print_text_font(str(self.total_pts))
-            self.combo_counter.print_text_font(str())
+            self.combo_counter.print_text_font(str(self.combo))
 
 
     def loadMap(self, mapName):
@@ -163,7 +163,10 @@ class MapManager:
 
                     if self.keyBind["base0"] and tiles.tileSprite.entitySprite.rect[0] > self.player.keyBaseList[0].entitySprite.rect[0] and tiles.tileSprite.entitySprite.rect[1] > (self.player.keyBaseList[0].entitySprite.rect[1] - 20):
                         tiles.state = "Hidden"
-                        self.total_pts += 100
+                        if self.combo != 0:
+                            self.total_pts += 100 * self.combo
+                        else:
+                            self.total_pts += 100
                         self.combo += 1
 
 
