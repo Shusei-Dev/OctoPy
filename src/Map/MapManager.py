@@ -102,7 +102,7 @@ class MapManager:
         self.timer = 0
         self.dt = 0
 
-        self.pts_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (self.gameSize[0] - 60, self.gameSize[1] - 55), 20, (255, 255, 255))
+        self.pts_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (self.gameSize[0] - 90, self.gameSize[1] - 55), 20, (255, 255, 255))
 
         self.combo_counter = Font(self.screen, "res/fonts/BACKTO1982.TTF", (60, self.gameSize[1] - 55), 20, (255, 255, 255))
 
@@ -118,6 +118,7 @@ class MapManager:
 
         self.screen.blit(self.hp_bar, (10,10))
         self.hp = 125
+        self.hp < 126
 
         self.total_pts = 0
         self.combo = 0
@@ -141,7 +142,6 @@ class MapManager:
     def updateMap(self, mapObj):
         self.timer += self.dt
         self.dt = self.clock.tick(get_yml_content("files/settings.yml").get("fps")) / 1000
-        #self.player.loose_hp(1)
         if self.check_hp() == 0:
             self.gameover = True
             self.stopMap()
@@ -160,15 +160,22 @@ class MapManager:
                     # La note est sorti du cadran donc le combo est cassé
                         tiles.state = "Hidden"
                         print("FAUTE")
+                        if self.hp != 0:
+                            self.hp = self.hp - 10
+
+                        self.combo = 0
 
                     if self.keyBind["base0"] and tiles.tileSprite.entitySprite.rect[0] > self.player.keyBaseList[0].entitySprite.rect[0] and tiles.tileSprite.entitySprite.rect[1] > (self.player.keyBaseList[0].entitySprite.rect[1] - 20):
                         tiles.state = "Hidden"
+
                         if self.combo != 0:
                             self.total_pts += 100 * self.combo
                         else:
                             self.total_pts += 100
                         self.combo += 1
 
+                        if self.hp < 125:
+                            self.hp = self.hp + 3
 
                 if tiles.tilePlace == 1:
                     if float("%.2f" % tiles.toScale) < 0.9:
@@ -179,8 +186,6 @@ class MapManager:
 
 
             tiles.update()
-
-        print(self.total_pts)
 
     def createNote(self, name, pos, showTime):
 

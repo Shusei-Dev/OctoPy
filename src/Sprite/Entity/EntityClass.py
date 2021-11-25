@@ -12,7 +12,7 @@ class EntityClass(pg.sprite.Sprite):
         self.pos = pos
         self.size = size
 
-        self.entityTypeList = ["KeyBase", "KeyNote"]
+        self.entityTypeList = ["KeyBase", "KeyNote", "HpBar"]
         if type in self.entityTypeList:
             self.type = type
 
