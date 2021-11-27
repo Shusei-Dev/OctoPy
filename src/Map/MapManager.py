@@ -155,6 +155,12 @@ class MapManager:
                         tiles.pos = (tiles.pos[0] + 0.5, tiles.pos[1] + self.velocity - 1)
                         self.scalingNote(tiles, tiles.toScale, False)
 
+                if tiles.tilePlace == 2:
+                    if float("%.2f" % tiles.toScale) < 0.9:
+                        tiles.toScale += 0.006
+                        tiles.pos = (tiles.pos[0] + 0.2, tiles.pos[1] - self.velocity)
+                        self.scalingNote(tiles, tiles.toScale, False)
+
 
 
             tiles.update()
@@ -163,7 +169,10 @@ class MapManager:
     def createNote(self, name, pos, showTime):
 
         tile = TileClass(self.screen, self.noteImgList[pos], name, self.notePosList[pos], "note", showTime, pos, self.scalingTile)
-        self.scalingNote(tile, self.scalingTile, True)
+        if pos == 1:
+            self.scalingNote(tile, self.scalingTile + 10, True)
+        else:
+            self.scalingNote(tile, self.scalingTile, True)
         self.tileList.append(tile)
 
     def scalingNote(self, tile, scaling, decrase):
